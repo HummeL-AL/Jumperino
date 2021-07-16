@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
                         jumpAnim.SetBool("preparingJump", false);
                         DoJump();
                         touchTime = 0;
+                        onGround = false;
                         break;
                     }
             }
@@ -112,6 +113,7 @@ public class PlayerController : MonoBehaviour
         //    jumpAnim.SetBool("preparingJump", false);
         //    DoJump();
         //    touchTime = 0;
+        //    onGround = false;
         //}
 
         if (transform.position.y < -cam.orthographicSize - 1f && !GameOver)
@@ -173,6 +175,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             curCoins++;
+            _currentCoins++;
             _totalCoins++;
             UpdateScores();
         }

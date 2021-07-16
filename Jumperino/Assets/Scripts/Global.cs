@@ -1,26 +1,31 @@
 using System;
+using System.IO;
+using System.Net;
 using System.Collections;
-using System.Collections.Generic;
 using System.Net.NetworkInformation;
+using TMPro;
 using UnityEngine;
 using static PlayerData;
 using static SaveSystem;
 using static GameController;
+using static DatabaseController;
 
 public class Global : MonoBehaviour
 {
     public float maxDifference;
+    public TextMeshProUGUI nicknameField;
 
     public static float _maxDifference;
+    public static TextMeshProUGUI _nicknameField;
 
     public static string macAdress;
 
     private void Awake()
     {
         _maxDifference = maxDifference;
+        _nicknameField = nicknameField;
 
         GetMacAddress();
-        Debug.Log(macAdress);
 
         TryToLoadData();
     }
@@ -105,6 +110,93 @@ public class Global : MonoBehaviour
                 {
                     break;
                 };
+            }
+        }
+    }
+
+    public static string GetTime()
+    {
+        string time = "";
+
+        time += DateTime.Now.Year;
+        time += checkDec(DateTime.Now.Month);
+        time += checkDec(DateTime.Now.Day);
+        time += checkDec(DateTime.Now.Hour);
+        time += checkDec(DateTime.Now.Minute);
+        time += checkDec(DateTime.Now.Second);
+
+        return time;
+    }
+
+    public static string checkDec(int toCheck)
+    {
+        string doubleCharInt = "" + toCheck;
+        if (toCheck / 10 == 0)
+        {
+            doubleCharInt = "0" + toCheck;
+        }
+        return doubleCharInt;
+    }
+
+    public static void SetNickname()
+    {
+        _nickname = _nicknameField.text;
+        _nicknameEntered = true;
+        SaveDataOnline();
+    }
+
+    public static string GetHtmlFromUrl(string resource)
+    {
+        string html = string.Empty;
+        HttpWebRequest req = (HttpWebRequest)WebRequest.Create(resource);
+        try
+        {
+            using (HttpWebResponse resp = (HttpWebResponse)req.GetResponse())
+            {
+                bool isSuccess = (int)resp.StatusCode < 299 && (int)resp.StatusCode >= 200;
+                if (isSuccess)
+                {
+                    using (StreamReader reader = new StreamReader(resp.GetResponseStream()))
+                    {
+                        //We are limiting the array to 80 so we don't have
+                        //to parse the entire html document feel free to 
+                        //adjust (probably stay under 300)
+                        char[] cs = new char[80];
+                        reader.Read(cs, 0, cs.Length);
+                        foreach (char ch in cs)
+                        {
+                            html += ch;
+                        }
+                    }
+                }
+            }
+        }
+        catch
+        {
+            return "";
+        }
+        return html;
+    }
+
+    public static bool IsConnected()
+    {
+        string HtmlText = GetHtmlFromUrl("http://google.com");
+        if (HtmlText == "")
+        {
+            Debug.Log("No internet connection!");
+            return false;
+        }
+        else
+        {
+            if (!HtmlText.Contains("schema.org/WebPage"))
+            {
+                Debug.Log("Redirection!");
+                return true;
+            }
+            else
+            {
+                Debug.Log("Internet connection detected.");
+                return true;
             }
         }
     }

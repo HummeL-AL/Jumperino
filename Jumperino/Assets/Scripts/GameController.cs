@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using static Global;
@@ -30,7 +27,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI scoresText;
     public TextMeshProUGUI maxScoresText;
     public TextMeshProUGUI coinsText;
-    public TextMeshProUGUI totalCoinsText;
+    public TextMeshProUGUI currentCoinsText;
 
     public static bool gameStarted = false;
     public static bool gameOver = false;
@@ -45,7 +42,7 @@ public class GameController : MonoBehaviour
     public static TextMeshProUGUI _scoresText;
     public static TextMeshProUGUI _maxScoresText;
     public static TextMeshProUGUI _coinsText;
-    public static TextMeshProUGUI _totalCoinsText;
+    public static TextMeshProUGUI _currentCoinsText;
 
     public static Coroutine moveCoroutine;
     public static Coroutine sizeCoroutine;
@@ -138,7 +135,7 @@ public class GameController : MonoBehaviour
         InvokeRepeating("RotatePlayer", 0f, Time.fixedDeltaTime);
 
         _coinsText = coinsText;
-        _totalCoinsText = totalCoinsText;
+        _currentCoinsText = currentCoinsText;
         _scoresText = scoresText;
         _maxScoresText = maxScoresText;
     }
@@ -251,7 +248,7 @@ public class GameController : MonoBehaviour
 
         _maxScoresText.SetText("Your record: " + _maxScores.ToString());
         _coinsText.SetText(curCoins.ToString());
-        _totalCoinsText.SetText(_totalCoins.ToString());
+        _currentCoinsText.SetText(_currentCoins.ToString());
     }
 
     public void RotatePlayer()

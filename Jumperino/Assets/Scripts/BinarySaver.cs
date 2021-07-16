@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
+using static Global;
 using static PlayerData;
 
 public class BinarySaver
@@ -14,9 +16,12 @@ public class BinarySaver
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData();
+        data.nicknameEntered = _nicknameEntered;
         data.maxScores = _maxScores;
         data.totalJumps = _totalJumps;
+        data.currentCoins = _currentCoins;
         data.totalCoins = _totalCoins;
+        data.saveTime = Convert.ToUInt64(GetTime());
 
         formatter.Serialize(stream, data);
         stream.Close();
@@ -37,8 +42,10 @@ public class BinarySaver
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
+            _nicknameEntered = data.nicknameEntered;
             _maxScores = data.maxScores;
             _totalJumps = data.totalJumps;
+            _currentCoins = data.currentCoins;
             _totalCoins = data.totalCoins;
 
             return data;
