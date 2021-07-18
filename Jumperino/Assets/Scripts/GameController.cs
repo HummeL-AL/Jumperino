@@ -217,6 +217,7 @@ public class GameController : MonoBehaviour
         UpdateScores();
 
         player.transform.position = Vector3.zero;
+        player.transform.localScale = Vector3.one;
         pc.jumpAnim.enabled = false;
         pc.rb.velocity = Vector2.zero;
         pc.rb.angularVelocity = 0f;

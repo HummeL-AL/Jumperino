@@ -25,14 +25,12 @@ public class Spawner : MonoBehaviour
     public static int curPlatformsCount = 0;
     public static Vector3 curCameraPos;
     public static Transform lastPlatform = null;
-    public Transform[] platformsPub;
     public static Transform[] platforms;
 
     // Start is called before the first frame update
     void Start()
     {
         platforms = new Transform[maxPlatformsCount];
-        platformsPub = platforms;
         curCameraPos = cam.transform.position;
         _maxPlatformsCount = maxPlatformsCount;
         _coinChance = coinChance;

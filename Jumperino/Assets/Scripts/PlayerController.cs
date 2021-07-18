@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
                     }
                 case TouchPhase.Moved:
                     {
-                        if (!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")) && onGround)
+                        if (!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
                         {
                             if (touchTime < maxTouchTime)
                             {
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
                     }
                 case TouchPhase.Stationary:
                     {
-                        if(!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")) && onGround)
+                        if(!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
                         {
                             if (touchTime < maxTouchTime)
                             {
@@ -79,7 +79,12 @@ public class PlayerController : MonoBehaviour
                 case TouchPhase.Ended:
                     {
                         jumpAnim.SetBool("preparingJump", false);
-                        DoJump();
+
+                        if (onGround)
+                        {
+                            DoJump();
+                        }
+
                         touchTime = 0;
                         onGround = false;
                         break;
@@ -94,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
         //if (Input.GetMouseButton(0))
         //{
-        //    if (!Physics.Raycast(Input.mousePosition, Vector3.forward, 30f, LayerMask.NameToLayer("UI")) && onGround)
+        //    if (!Physics.Raycast(Input.mousePosition, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
         //    {
         //        if (touchTime < maxTouchTime)
         //        {
@@ -111,7 +116,12 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetMouseButtonUp(0))
         //{
         //    jumpAnim.SetBool("preparingJump", false);
-        //    DoJump();
+        //
+        //    if (onGround)
+        //    {
+        //      DoJump();
+        //    }
+        //
         //    touchTime = 0;
         //    onGround = false;
         //}
