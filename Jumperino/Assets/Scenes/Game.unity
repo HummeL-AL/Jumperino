@@ -1277,7 +1277,6 @@ MonoBehaviour:
   startPlatformPosition: {x: 0, y: -2.67, z: 0}
   platformPrefab: {fileID: 3938253652031005254, guid: 005783a4c0ca47749a3b25885ac8ebba, type: 3}
   coinPrefab: {fileID: 865243903312865026, guid: d0fd9a9266faca84d8d0ec42a7dc028a, type: 3}
-  platformsPub: []
 --- !u!114 &422590619
 MonoBehaviour:
   m_ObjectHideFlags: 0
