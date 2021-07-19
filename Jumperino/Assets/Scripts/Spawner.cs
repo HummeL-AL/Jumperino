@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 using static GameController;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
@@ -22,16 +23,25 @@ public class Spawner : MonoBehaviour
     public static GameObject _platformPrefab;
     public static GameObject _coinPrefab;
 
-    public static int curPlatformsCount = 0;
-    public static Vector3 curCameraPos;
-    public static Transform lastPlatform = null;
+    public static Vector2 curCameraPosition;
+    public static Vector2 curCameraSize;
+    public static Transform prevPlatform;
+    public static Transform curPlatform;
     public static Transform[] platforms;
 
-    // Start is called before the first frame update
-    void Start()
+    public enum coinType
     {
-        platforms = new Transform[maxPlatformsCount];
-        curCameraPos = cam.transform.position;
+        low,
+        medium,
+        high
+    }
+
+    private void Awake()
+    {
+        curCameraPosition = cam.transform.position;
+        curCameraSize.y = 2f * 6.9f;
+        curCameraSize.x = curCameraSize.y * cam.aspect;
+
         _maxPlatformsCount = maxPlatformsCount;
         _coinChance = coinChance;
         _startPlatformPosition = startPlatformPosition;
@@ -39,6 +49,14 @@ public class Spawner : MonoBehaviour
         _coinPrefab = coinPrefab;
         _maxAngleBetweenPlatforms = maxAngleBetweenPlatforms;
         _minDistanceBetweenPlatforms = minDistanceBetweenPlatforms;
+
+        platforms = new Transform[maxPlatformsCount];
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame
@@ -47,94 +65,96 @@ public class Spawner : MonoBehaviour
         
     }
 
-    public static IEnumerator UpdatePlatforms()
+    public static void UpdatePlatforms()
     {
-        foreach (Platform platform in FindObjectsOfType<Platform>())
+        if (platforms.All(x => x == null))
         {
-            if(platform.transform.position.x < camTargetPosition.x - cam.orthographicSize * cam.aspect - _platformPrefab.GetComponent<SpriteRenderer>().bounds.size.x * 0.5f)
+            Transform startPlatform = CreatePlatform(_startPlatformPosition, Quaternion.identity);
+            platforms[0] = startPlatform;
+            startPlatform.GetComponent<Platform>().first = true;
+            startPlatform.GetComponent<Platform>().activated = true;
+            SpawnPlatforms();
+        }
+        else
+        {
+            SpawnPlatforms();
+        }
+    }
+
+    public static void UpdateCurPlatform(Transform newPlatform)
+    {
+        prevPlatform = curPlatform;
+        curPlatform = newPlatform;
+        int prevPlatformId = Array.IndexOf(platforms, prevPlatform);
+        int newPlatformId = Array.IndexOf(platforms, newPlatform);
+
+        if (!newPlatform.GetComponent<Platform>().activated)
+        {
+            platforms[newPlatformId].GetComponent<Platform>().activated = true;
+            platforms[newPlatformId - 1].GetComponent<Platform>().activated = true;
+            curScores += newPlatformId - prevPlatformId;
+            UpdateScores();
+        }
+
+        int offset = Mathf.Clamp(newPlatformId - 1, 0, _maxPlatformsCount);
+        if (offset != 0)
+        {
+            for (int platformId = 0; platformId < platforms.Length; platformId++)
             {
-                Destroy(platform.gameObject);
-                curPlatformsCount--;
+                if(platformId < offset)
+                {
+                    Destroy(platforms[platformId].gameObject);
+                }
+
+                if(platformId+offset < platforms.Length)
+                {
+                    platforms[platformId] = platforms[platformId + offset];
+                }
+                else
+                {
+                    platforms[platformId] = null;
+                }
             }
         }
-        yield return new WaitForEndOfFrame();
-        UpdatePlatformsList();
-        while (curPlatformsCount < _maxPlatformsCount)
+        SpawnPlatforms();
+    }
+
+    public static void SpawnPlatforms()
+    {
+        for(int platformId = 0; platformId < platforms.Length; platformId++)
         {
-            if (curPlatformsCount == 0)
+            if(platforms[platformId] == null)
             {
-                CreatePlatform(_platformPrefab, _startPlatformPosition, Vector3.zero, true);
-            }
-            else
-            {
-                SpawnPlatform();
+                Vector3 spawnPos = new Vector3();
+                Vector3 prevPlatform = platforms[platformId - 1].position;
+
+                spawnPos.x = Random.Range(prevPlatform.x + _minDistanceBetweenPlatforms, prevPlatform.x + (curCameraSize.x) / 2f);
+                float maxY = ((spawnPos.x - prevPlatform.x) * Mathf.Sin(_maxAngleBetweenPlatforms * Mathf.Deg2Rad)) / Mathf.Sin((90 - _maxAngleBetweenPlatforms) * Mathf.Deg2Rad);
+                spawnPos.y = Mathf.Clamp(Random.Range(prevPlatform.y - maxY, prevPlatform.y + maxY), -curCameraSize.y * 0.45f, curCameraSize.y * 0.45f);
+
+                Platform createdPlatform = CreatePlatform(spawnPos, Quaternion.identity).GetComponent<Platform>();
+                platforms[platformId] = createdPlatform.transform;
+
+                if (Random.Range(0f, 1f) < _coinChance)
+                {
+                    createdPlatform.withCoin = true;
+                    createdPlatform.coinStructure = (coinType)Random.Range(0, 3);
+                }
             }
         }
     }
 
-    public static void SpawnPlatform()
+    public static Transform CreatePlatform(Vector3 spawnPosition, Quaternion spawnRotation)
     {
-        UpdatePlatformsList();
-        float spawnX = Random.Range(lastPlatform.position.x + _minDistanceBetweenPlatforms, lastPlatform.position.x + targetSize * cam.aspect);
-
-        float maxY = ((spawnX - lastPlatform.position.x) * Mathf.Sin(_maxAngleBetweenPlatforms * Mathf.Deg2Rad)) / Mathf.Sin((90-_maxAngleBetweenPlatforms)*Mathf.Deg2Rad);
-        float spawnY = Random.Range(lastPlatform.position.y - maxY, lastPlatform.position.y + maxY);
-        spawnY = Mathf.Clamp(spawnY, -cam.orthographicSize * 0.9f, cam.orthographicSize * 0.9f);
-        Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
-        Vector3 spawnRotation = Vector3.zero;
-
-        CreatePlatform(_platformPrefab, spawnPosition, spawnRotation, false);
-    }
-
-    public static void CreatePlatform(GameObject platform, Vector3 spawnPosition, Vector3 spawnRotation, bool start)
-    {
-        UpdatePlatformsList();
-        Quaternion qRotation = Quaternion.Euler(spawnRotation);
-        Platform createdPlatform = Instantiate(platform, spawnPosition, qRotation).GetComponent<Platform>();
-        createdPlatform.first = start;
-
-        lastPlatform = createdPlatform.transform;
-        platforms[curPlatformsCount] = lastPlatform;
-        curPlatformsCount++;
-
-        if(!start && Random.Range(0f, 1f) < _coinChance)
-        {
-            Instantiate(_coinPrefab, createdPlatform.transform.position + Vector3.up * 2f, Quaternion.identity, createdPlatform.transform);
-        }
+        return Instantiate(_platformPrefab, spawnPosition, spawnRotation).transform;
     }
 
     public static void ClearPlatforms()
     {
-        UpdatePlatformsList();
-        foreach (Transform platform in platforms)
+        for (int platformId = 0; platformId < platforms.Length; platformId++)
         {
-            Debug.Log(platform + " " + curPlatformsCount);
-            if (platform)
-            {
-                Destroy(platform.gameObject);
-                curPlatformsCount--;
-            }
-        }
-        UpdatePlatformsList();
-        Debug.Log(curPlatformsCount);
-    }
-
-    public static void UpdatePlatformsList()
-    {
-        for(int i = 0; i < _maxPlatformsCount; i++)
-        {
-            if (!platforms[i])
-            {
-                for (int j = i+1; j < _maxPlatformsCount; j++)
-                {
-                    if(platforms[j])
-                    {
-                        platforms[i] = platforms[j];
-                        platforms[j] = null;
-                        break;
-                    }
-                }
-            }
+            Destroy(platforms[platformId].gameObject);
+            platforms[platformId] = null;
         }
     }
 }

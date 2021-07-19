@@ -116,12 +116,12 @@ public class PlayerController : MonoBehaviour
         //if (Input.GetMouseButtonUp(0))
         //{
         //    jumpAnim.SetBool("preparingJump", false);
-        //
+
         //    if (onGround)
         //    {
-        //      DoJump();
+        //        DoJump();
         //    }
-        //
+
         //    touchTime = 0;
         //    onGround = false;
         //}
@@ -159,14 +159,8 @@ public class PlayerController : MonoBehaviour
 
             onGround = true;
 
-            if (!collidedPlatform.first && !collidedPlatform.activated)
-            {
-                collidedPlatform.activated = true;
-                curScores++;
-                UpdateScores();
-            }
-
-            StartCoroutine(UpdatePlatforms());
+            UpdateCurPlatform(collidedPlatform.transform);
+            UpdateScores();
 
             lastPosition = collidedPlatform.transform.position + Vector3.up;
             lastRotation = transform.rotation;

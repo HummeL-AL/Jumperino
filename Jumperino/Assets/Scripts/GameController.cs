@@ -159,7 +159,7 @@ public class GameController : MonoBehaviour
 
         GameStarted = true;
         player.GetComponent<PlayerController>().enabled = true;
-        StartCoroutine(UpdatePlatforms());
+        UpdatePlatforms();
 
         if (moveCoroutine != null)
         {
@@ -182,7 +182,7 @@ public class GameController : MonoBehaviour
 
         camTargetPosition = Vector3.forward * -10f;
         ClearPlatforms();
-        StartCoroutine(UpdatePlatforms());
+        UpdatePlatforms();
         player.transform.position = Vector3.zero;
         player.transform.rotation = Quaternion.identity;
         pc.rb.velocity = Vector2.zero;
