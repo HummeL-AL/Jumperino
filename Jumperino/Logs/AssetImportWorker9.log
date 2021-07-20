@@ -1,0 +1,21 @@
+Using pre-set license
+Built from '2020.2/release' branch; Version is '2020.2.1f1 (270dd8c3da1c) revision 2559448'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'ru' Physical Memory: 8120 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+D:\Programming\Unity\2020.2.1f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker9
+-projectPath
+D:/Programming/Unity/Jumperino/Jumperino
+-logFile
+Logs/AssetImportWorker9.log
+-srvPort
+51988
+Successfully changed project path to: D:/Programming/Unity/Jumperino/Jumperino
+D:/Programming/Unity/Jumperino/Jumperino
+Using Asset Import Pipeline V2.

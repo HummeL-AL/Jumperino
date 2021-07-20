@@ -13,6 +13,18 @@ public class PlayerController : MonoBehaviour
     public float maxTouchTime;
     public float jumpAngle;
 
+    public static PlayerSkin _skin;
+    public PlayerSkin skin
+    {
+        get => _skin;
+        set
+        {
+            _skin = value;
+            GetComponent<MeshFilter>().sharedMesh = _skin.mesh;
+            GetComponent<MeshRenderer>().materials = _skin.materials;
+        }
+    }
+
     bool onGround;
     float touchTime;
 
@@ -92,39 +104,39 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    jumpAnim.SetBool("preparingJump", true);
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            jumpAnim.SetBool("preparingJump", true);
+        }
 
-        //if (Input.GetMouseButton(0))
-        //{
-        //    if (!Physics.Raycast(Input.mousePosition, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
-        //    {
-        //        if (touchTime < maxTouchTime)
-        //        {
-        //            touchTime += Time.deltaTime;
-        //            Mathf.Clamp(touchTime, 0f, maxTouchTime);
-        //        }
-        //    }
-        //    else if (touchTime != 0)
-        //    {
-        //        touchTime = 0;
-        //    }
-        //}
+        if (Input.GetMouseButton(0))
+        {
+            if (!Physics.Raycast(Input.mousePosition, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
+            {
+                if (touchTime < maxTouchTime)
+                {
+                    touchTime += Time.deltaTime;
+                    Mathf.Clamp(touchTime, 0f, maxTouchTime);
+                }
+            }
+            else if (touchTime != 0)
+            {
+                touchTime = 0;
+            }
+        }
 
-        //if (Input.GetMouseButtonUp(0))
-        //{
-        //    jumpAnim.SetBool("preparingJump", false);
+        if (Input.GetMouseButtonUp(0))
+        {
+            jumpAnim.SetBool("preparingJump", false);
 
-        //    if (onGround)
-        //    {
-        //        DoJump();
-        //    }
+            if (onGround)
+            {
+                DoJump();
+            }
 
-        //    touchTime = 0;
-        //    onGround = false;
-        //}
+            touchTime = 0;
+            onGround = false;
+        }
 
         if (transform.position.y < -cam.orthographicSize - 1f && !GameOver)
         {

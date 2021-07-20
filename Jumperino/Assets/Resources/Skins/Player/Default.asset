@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Default
+  m_EditorClassIdentifier: 
+  skinName: Default
+  price: 0
+  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  materials:
+  - {fileID: 2100000, guid: c3cd28d0348e92f4c80de9235d1d58da, type: 2}

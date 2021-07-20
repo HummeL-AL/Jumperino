@@ -23,6 +23,10 @@ public class BinarySaver
         data.totalCoins = _totalCoins;
         data.saveTime = Convert.ToUInt64(GetTime());
 
+        data.unlockedPlayerSkins = _unlockedPlayerSkins;
+        data.unlockedPlatformsSkins = _unlockedPlatformsSkins;
+        data.unlockedBackgroundSkins = _unlockedBackgroundSkins;
+
         formatter.Serialize(stream, data);
         stream.Close();
 
@@ -47,6 +51,10 @@ public class BinarySaver
             _totalJumps = data.totalJumps;
             _currentCoins = data.currentCoins;
             _totalCoins = data.totalCoins;
+
+            _unlockedPlayerSkins = data.unlockedPlayerSkins;
+            _unlockedPlatformsSkins = data.unlockedPlatformsSkins;
+            _unlockedBackgroundSkins = data.unlockedBackgroundSkins;
 
             return data;
         }

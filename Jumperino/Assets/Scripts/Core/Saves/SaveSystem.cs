@@ -80,6 +80,10 @@ public class SaveSystem : MonoBehaviour
         _currentCoins = acceptedData.currentCoins;
         _totalCoins = acceptedData.totalCoins;
 
+        _unlockedPlayerSkins = acceptedData.unlockedPlayerSkins;
+        _unlockedPlatformsSkins = acceptedData.unlockedPlatformsSkins;
+        _unlockedBackgroundSkins = acceptedData.unlockedBackgroundSkins;
+
         UpdateScores();
     }
 }

@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
     public static Coroutine moveCoroutine;
     public static Coroutine sizeCoroutine;
 
-    PlayerController pc;
+    public static PlayerController pc;
     Spawner spawn;
 
     public bool GameStarted

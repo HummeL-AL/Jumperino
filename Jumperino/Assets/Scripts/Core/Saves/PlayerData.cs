@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 [Serializable]
 public class PlayerData
@@ -8,6 +9,9 @@ public class PlayerData
     public int totalJumps;
     public int currentCoins;
     public int totalCoins;
+    public List<string> unlockedPlayerSkins;
+    public List<string> unlockedPlatformsSkins;
+    public List<string> unlockedBackgroundSkins;
 
     public ulong saveTime;
 
@@ -17,4 +21,7 @@ public class PlayerData
     public static int _totalJumps;
     public static int _currentCoins;
     public static int _totalCoins;
+    public static List<string> _unlockedPlayerSkins;
+    public static List<string> _unlockedPlatformsSkins;
+    public static List<string> _unlockedBackgroundSkins;
 }

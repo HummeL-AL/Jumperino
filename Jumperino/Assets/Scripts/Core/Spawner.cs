@@ -130,7 +130,7 @@ public class Spawner : MonoBehaviour
 
                 spawnPos.x = Random.Range(prevPlatform.x + _minDistanceBetweenPlatforms, prevPlatform.x + (curCameraSize.x) / 2f);
                 float maxY = ((spawnPos.x - prevPlatform.x) * Mathf.Sin(_maxAngleBetweenPlatforms * Mathf.Deg2Rad)) / Mathf.Sin((90 - _maxAngleBetweenPlatforms) * Mathf.Deg2Rad);
-                spawnPos.y = Mathf.Clamp(Random.Range(prevPlatform.y - maxY, prevPlatform.y + maxY), -curCameraSize.y * 0.45f, curCameraSize.y * 0.45f);
+                spawnPos.y = Mathf.Clamp(Random.Range(prevPlatform.y - maxY, prevPlatform.y + maxY), -curCameraSize.y * 0.45f, curCameraSize.y * 0.35f);
 
                 Platform createdPlatform = CreatePlatform(spawnPos, Quaternion.identity).GetComponent<Platform>();
                 platforms[platformId] = createdPlatform.transform;
