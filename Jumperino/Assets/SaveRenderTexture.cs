@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-
+#if (UNITY_EDITOR) 
 public class SaveRenderTexture
 {
     [MenuItem("Assets/Save RenderTexture to file")]
@@ -28,3 +28,5 @@ public class SaveRenderTexture
         return Selection.activeObject is RenderTexture;
     }
 }
+
+#endif
