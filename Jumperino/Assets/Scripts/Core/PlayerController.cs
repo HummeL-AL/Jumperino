@@ -13,15 +13,15 @@ public class PlayerController : MonoBehaviour
     public float maxTouchTime;
     public float jumpAngle;
 
-    public static PlayerSkin _skin;
-    public PlayerSkin skin
+    public PlayerSkin skin;
+    public PlayerSkin Skin
     {
-        get => _skin;
+        get => skin;
         set
         {
-            _skin = value;
-            GetComponent<MeshFilter>().sharedMesh = _skin.mesh;
-            GetComponent<MeshRenderer>().materials = _skin.materials;
+            skin = value;
+            GetComponent<MeshFilter>().sharedMesh = skin.mesh;
+            GetComponent<MeshRenderer>().materials = skin.materials;
         }
     }
 
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         jumpAnim = GetComponent<Animator>();
+        Skin = skin;
     }
 
     void OnEnable()
@@ -103,7 +104,7 @@ public class PlayerController : MonoBehaviour
                     }
             }
         }
-
+#if (UNITY_EDITOR)
         if (Input.GetMouseButtonDown(0))
         {
             jumpAnim.SetBool("preparingJump", true);
@@ -138,6 +139,7 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         }
 
+#endif
         if (transform.position.y < -cam.orthographicSize - 1f && !GameOver)
         {
             GameOver = true;
@@ -167,7 +169,6 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.GetComponent<Platform>())
         {
             Platform collidedPlatform = collision.gameObject.GetComponent<Platform>();
-            camTargetPosition = new Vector3(collidedPlatform.transform.position.x + platformDistance, 0f, -10f);
 
             onGround = true;
 
@@ -177,11 +178,14 @@ public class PlayerController : MonoBehaviour
             lastPosition = collidedPlatform.transform.position + Vector3.up;
             lastRotation = transform.rotation;
 
-            if (moveCoroutine != null)
-            {
-                StopCoroutine(moveCoroutine);
-            }
-            moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, 5f));
+
+            freeMove = true;
+            //camTargetPosition = new Vector3(collidedPlatform.transform.position.x + platformDistance, 0f, -10f);
+            //if (moveCoroutine != null)
+            //{
+            //    StopCoroutine(moveCoroutine);
+            //}
+            //moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, 5f));
         }
     }
 

@@ -118,15 +118,19 @@ public class GameController : MonoBehaviour
     }
 
     public static float platformDistance;
-    public static GameObject player;
+
+    public GameObject player;
+    public static GameObject _player;
 
     public static Camera cam;
+    public static bool freeMove = false;
 
     private void Awake()
     {
+        _player = player;
         cam = GetComponent<Camera>();
-        player = GameObject.Find("Player");
-        pc = player.GetComponent<PlayerController>();
+
+        pc = _player.GetComponent<PlayerController>();
         pc.game = this;
 
         spawn = transform.GetComponent<Spawner>();
@@ -142,12 +146,15 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-
+        if (freeMove)
+        {
+            cam.transform.position = new Vector3(pc.transform.position.x + platformDistance, cam.transform.position.y, cam.transform.position.z);
+        }
     }
 
     public void StartGame()
@@ -158,7 +165,7 @@ public class GameController : MonoBehaviour
         targetSize = basicSize * 3f;
 
         GameStarted = true;
-        player.GetComponent<PlayerController>().enabled = true;
+        pc.enabled = true;
         UpdatePlatforms();
 
         if (moveCoroutine != null)
@@ -171,6 +178,7 @@ public class GameController : MonoBehaviour
         }
 
         moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, camSpeed));
+        freeMove = false;
         sizeCoroutine = StartCoroutine(ChangeCameraSize(cam, targetSize, zoomSpeed));
     }
 
@@ -183,8 +191,8 @@ public class GameController : MonoBehaviour
         camTargetPosition = Vector3.forward * -10f;
         ClearPlatforms();
         UpdatePlatforms();
-        player.transform.position = Vector3.zero;
-        player.transform.rotation = Quaternion.identity;
+        _player.transform.position = Vector3.zero;
+        _player.transform.rotation = Quaternion.identity;
         pc.rb.velocity = Vector2.zero;
         pc.rb.angularVelocity = 0f;
 
@@ -195,14 +203,15 @@ public class GameController : MonoBehaviour
             StopCoroutine(moveCoroutine);
         }
         moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, camSpeed));
+        freeMove = false;
 
         TryToSaveData();
     }
 
     public void ReplayGame()
     {
-        player.transform.position = lastPosition;
-        player.transform.rotation = lastRotation;
+        _player.transform.position = lastPosition;
+        _player.transform.rotation = lastRotation;
         pc.rb.velocity = Vector2.zero;
         pc.rb.angularVelocity = 0f;
         pc.enabled = true;
@@ -216,8 +225,8 @@ public class GameController : MonoBehaviour
         curCoins = 0;
         UpdateScores();
 
-        player.transform.position = Vector3.zero;
-        player.transform.localScale = Vector3.one;
+        _player.transform.position = Vector3.zero;
+        _player.transform.localScale = Vector3.one;
         pc.jumpAnim.enabled = false;
         pc.rb.velocity = Vector2.zero;
         pc.rb.angularVelocity = 0f;
@@ -234,6 +243,7 @@ public class GameController : MonoBehaviour
             StopCoroutine(sizeCoroutine);
         }
         moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, camSpeed));
+        freeMove = false;
         sizeCoroutine = StartCoroutine(ChangeCameraSize(cam, targetSize, zoomSpeed));
 
         TryToSaveData();
@@ -254,6 +264,6 @@ public class GameController : MonoBehaviour
 
     public void RotatePlayer()
     {
-        player.transform.Rotate(Mathf.Abs(Mathf.Sin(Time.time)) * rotateSpeed * Time.deltaTime, Mathf.Abs(Mathf.Cos(Time.time) * 2) * rotateSpeed * Time.deltaTime, 0f);
+        _player.transform.Rotate(Mathf.Abs(Mathf.Sin(Time.time)) * rotateSpeed * Time.deltaTime, Mathf.Abs(Mathf.Cos(Time.time) * 2) * rotateSpeed * Time.deltaTime, 0f);
     }
 }

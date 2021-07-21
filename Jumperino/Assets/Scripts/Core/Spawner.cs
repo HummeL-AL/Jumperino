@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour
 
     public GameObject platformPrefab;
     public GameObject coinPrefab;
+    public PlatformSkin platformSkin;
 
     public static int _maxPlatformsCount;
     public static float _maxAngleBetweenPlatforms;
@@ -22,6 +23,7 @@ public class Spawner : MonoBehaviour
     public static Vector3 _startPlatformPosition;
     public static GameObject _platformPrefab;
     public static GameObject _coinPrefab;
+    public static PlatformSkin _platformSkin;
 
     public static Vector2 curCameraPosition;
     public static Vector2 curCameraSize;
@@ -47,6 +49,7 @@ public class Spawner : MonoBehaviour
         _startPlatformPosition = startPlatformPosition;
         _platformPrefab = platformPrefab;
         _coinPrefab = coinPrefab;
+        _platformSkin = platformSkin;
         _maxAngleBetweenPlatforms = maxAngleBetweenPlatforms;
         _minDistanceBetweenPlatforms = minDistanceBetweenPlatforms;
 
@@ -67,12 +70,13 @@ public class Spawner : MonoBehaviour
 
     public static void UpdatePlatforms()
     {
+        Platform.skin = _platformSkin;
         if (platforms.All(x => x == null))
         {
-            Transform startPlatform = CreatePlatform(_startPlatformPosition, Quaternion.identity);
-            platforms[0] = startPlatform;
-            startPlatform.GetComponent<Platform>().first = true;
-            startPlatform.GetComponent<Platform>().activated = true;
+            Platform startPlatform = CreatePlatform(_startPlatformPosition, Quaternion.identity).GetComponent<Platform>();
+            platforms[0] = startPlatform.transform;
+            startPlatform.first = true;
+            startPlatform.activated = true;
             SpawnPlatforms();
         }
         else

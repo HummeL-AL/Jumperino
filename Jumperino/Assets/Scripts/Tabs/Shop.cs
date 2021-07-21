@@ -41,15 +41,20 @@ public class Shop : MonoBehaviour
         {
             Destroy(panel.gameObject);
         }
+        foreach (Transform panel in platformSkinPanel)
+        {
+            Destroy(panel.gameObject);
+        }
+        foreach (Transform panel in backgroundSkinPanel)
+        {
+            Destroy(panel.gameObject);
+        }
 
-        foreach(PlayerSkin skin in playerSkins)
+        foreach (PlayerSkin skin in playerSkins)
         {
             Transform createdPanel = Instantiate(shopItem, playerSkinPanel.transform).transform;
             createdPanel.name = skin.skinName;
-            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/" + skin.skinName + "/Preview");
-
-            Debug.Log(_unlockedPlayerSkins);
-            Debug.Log(skin.skinName);
+            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Player/" + skin.skinName + "/Preview");
 
             createdPanel.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = skin.price.ToString();
 
@@ -59,6 +64,46 @@ public class Shop : MonoBehaviour
             }
 
             if (_unlockedPlayerSkins.Contains(skin.skinName))
+            {
+                createdPanel.GetChild(1).gameObject.SetActive(false);
+                createdPanel.GetChild(2).gameObject.SetActive(true);
+            }
+        }
+
+        foreach (PlatformSkin skin in platformSkins)
+        {
+            Transform createdPanel = Instantiate(shopItem, platformSkinPanel.transform).transform;
+            createdPanel.name = skin.skinName;
+            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Platforms/" + skin.skinName + "/Preview");
+
+            createdPanel.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = skin.price.ToString();
+
+            if (_unlockedPlatformsSkins == null)
+            {
+                _unlockedPlatformsSkins = new List<string>();
+            }
+
+            if (_unlockedPlatformsSkins.Contains(skin.skinName))
+            {
+                createdPanel.GetChild(1).gameObject.SetActive(false);
+                createdPanel.GetChild(2).gameObject.SetActive(true);
+            }
+        }
+
+        foreach (BackgroundSkin skin in backgroundSkins)
+        {
+            Transform createdPanel = Instantiate(shopItem, backgroundSkinPanel.transform).transform;
+            createdPanel.name = skin.skinName;
+            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Background/" + skin.skinName + "/Preview");
+
+            createdPanel.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = skin.price.ToString();
+
+            if (_unlockedBackgroundSkins == null)
+            {
+                _unlockedBackgroundSkins = new List<string>();
+            }
+
+            if (_unlockedBackgroundSkins.Contains(skin.skinName))
             {
                 createdPanel.GetChild(1).gameObject.SetActive(false);
                 createdPanel.GetChild(2).gameObject.SetActive(true);
@@ -75,30 +120,87 @@ public class Shop : MonoBehaviour
         {
             _currentCoins -= skinPrice;
 
-            if (_unlockedPlayerSkins == null)
+            switch(skinToBuy.parent.name)
             {
-                _unlockedPlayerSkins = new List<string>();
+                case "Player":
+                    {
+                        if (_unlockedPlayerSkins == null)
+                        {
+                            _unlockedPlayerSkins = new List<string>();
+                        }
+                        _unlockedPlayerSkins.Add(skinName);
+                        break;
+                    }
+                case "Platforms":
+                    {
+                        if (_unlockedPlatformsSkins == null)
+                        {
+                            _unlockedPlatformsSkins = new List<string>();
+                        }
+                        _unlockedPlatformsSkins.Add(skinName);
+                        break;
+                    }
+                case "Background":
+                    {
+                        if (_unlockedBackgroundSkins == null)
+                        {
+                            _unlockedBackgroundSkins = new List<string>();
+                        }
+                        _unlockedBackgroundSkins.Add(skinName);
+                        break;
+                    }
             }
-            _unlockedPlayerSkins.Add(skinName);
 
             skinToBuy.GetChild(1).gameObject.SetActive(false);
             skinToBuy.GetChild(2).gameObject.SetActive(true);
 
             TryToSaveData();
+            TryToApplySkin(skinToBuy);
         }
     }
 
-    public void TryToApplySkin(Transform skinToBuy)
+    public void TryToApplySkin(Transform skinToApply)
     {
-        string skinName = skinToBuy.name;
+        string skinName = skinToApply.name;
 
-        foreach(PlayerSkin skin in playerSkins)
+        switch (skinToApply.parent.name)
         {
-            if(skin.skinName == skinName)
-            {
-                pc.skin = skin;
-                break;
-            }
+            case "Player":
+                {
+                    foreach (PlayerSkin skin in playerSkins)
+                    {
+                        if (skin.skinName == skinName)
+                        {
+                            pc.Skin = skin;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Platforms":
+                {
+                    foreach (PlatformSkin skin in platformSkins)
+                    {
+                        if (skin.skinName == skinName)
+                        {
+                            Spawner._platformSkin = skin;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Background":
+                {
+                    foreach (BackgroundSkin skin in backgroundSkins)
+                    {
+                        if (skin.skinName == skinName)
+                        {
+                            cam.GetComponent<Global>().Skin = skin;
+                            break;
+                        }
+                    }
+                    break;
+                }
         }
     }
 }

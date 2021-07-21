@@ -11,9 +11,12 @@ public class Platform : MonoBehaviour
     public bool withCoin;
     public coinType coinStructure;
 
+    public static PlatformSkin skin;
+
     private void Awake()
     {
-
+        GetComponent<SpriteRenderer>().sprite = skin.sprite;
+        GetComponent<BoxCollider2D>().size = skin.colliderSize;
     }
 
     // Start is called before the first frame update

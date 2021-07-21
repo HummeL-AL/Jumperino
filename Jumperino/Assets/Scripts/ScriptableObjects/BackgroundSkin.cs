@@ -8,6 +8,5 @@ public class BackgroundSkin : ScriptableObject
     public string skinName;
     public int price;
 
-    public Mesh mesh;
-    public Material[] materials;
+    public Material material;
 }

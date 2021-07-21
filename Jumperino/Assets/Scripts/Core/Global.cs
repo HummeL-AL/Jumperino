@@ -18,6 +18,17 @@ public class Global : MonoBehaviour
     public static float _maxDifference;
     public static TextMeshProUGUI _nicknameField;
 
+    public BackgroundSkin skin;
+    public BackgroundSkin Skin
+    {
+        get => skin;
+        set
+        {
+            skin = value;
+            RenderSettings.skybox = skin.material;
+        }
+    }
+
     public static string macAdress;
 
     private void Awake()
@@ -61,6 +72,7 @@ public class Global : MonoBehaviour
 
     public static IEnumerator MoveTo(Transform targetObject, Vector3 targetPosition, float motionSpeed)
     {
+        Debug.Log("Coroutine started: " + targetPosition);
         for (; ; )
         {
             if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, targetPosition)) > _maxDifference)
@@ -74,6 +86,7 @@ public class Global : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
+        Debug.Log("Coroutine ended: " + targetPosition);
     }
 
     public static IEnumerator ChangeCameraSize(Camera cam, float targetSize, float lerpSpeed)
