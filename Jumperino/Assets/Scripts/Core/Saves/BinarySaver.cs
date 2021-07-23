@@ -3,7 +3,9 @@ using System.IO;
 using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using static Global;
+using static Spawner;
 using static PlayerData;
+using static GameController;
 
 public class BinarySaver
 {
@@ -61,6 +63,60 @@ public class BinarySaver
         else
         {
             return SaveDataOffline();
+        }
+    }
+
+    public static PlayerSettings SaveSettingsOffline()
+    {
+        Debug.Log("Save settings offline initialized");
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        string path = Application.persistentDataPath + "PlayerSettings.hmml";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        PlayerSettings settings = new PlayerSettings();
+
+        settings.playerSkin = pc.skin.name;
+        settings.platformSkin = _platformSkin.name;
+        settings.backgroundSkin = cam.GetComponent<Global>().skin.name;
+
+        settings.jumpTime = pc.MaxTouchTime;
+        settings.musicVolume = musicVolume;
+        settings.soundVolume = soundVolume;
+
+        formatter.Serialize(stream, settings);
+        stream.Close();
+
+        return settings;
+    }
+
+    public static PlayerSettings LoadSettingsOffline()
+    {
+        Debug.Log("Load settings offline initialized");
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        string path = Application.persistentDataPath + "PlayerSettings.hmml";
+
+        if (File.Exists(path))
+        {
+            FileStream stream = new FileStream(path, FileMode.Open);
+            PlayerSettings settings = formatter.Deserialize(stream) as PlayerSettings;
+            stream.Close();
+
+            pc.skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
+            _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/" + settings.platformSkin);
+            cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/" + settings.backgroundSkin);
+
+            pc.MaxTouchTime = settings.jumpTime;
+            musicVolume = settings.musicVolume;
+            soundVolume = settings.soundVolume;
+
+            return settings;
+
+        }
+        else
+        {
+            return SaveSettingsOffline();
         }
     }
 }

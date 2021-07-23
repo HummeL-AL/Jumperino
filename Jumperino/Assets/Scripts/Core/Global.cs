@@ -15,8 +15,28 @@ public class Global : MonoBehaviour
     public float maxDifference;
     public TextMeshProUGUI nicknameField;
 
+    public static float soundVolume;
+    public static float musicVolume;
+
+    public ParticleSystem bgParticles;
+
     public static float _maxDifference;
     public static TextMeshProUGUI _nicknameField;
+
+    public float prevSize;
+    public Canvas canvas;
+
+    public static string macAdress;
+
+    public float MusicVolume
+    {
+        get => musicVolume;
+        set
+        {
+            musicVolume = value;
+            GetComponent<AudioSource>().volume = musicVolume;
+        }
+    }
 
     public BackgroundSkin skin;
     public BackgroundSkin Skin
@@ -26,10 +46,19 @@ public class Global : MonoBehaviour
         {
             skin = value;
             RenderSettings.skybox = skin.material;
+            if(bgParticles)
+            {
+                Destroy(bgParticles);
+            }
+            else
+            {
+                if(skin.ambientParticles)
+                {
+                    bgParticles = Instantiate(skin.ambientParticles, Vector3.zero, Quaternion.identity, canvas.transform);
+                }
+            }
         }
     }
-
-    public static string macAdress;
 
     private void Awake()
     {
@@ -39,6 +68,7 @@ public class Global : MonoBehaviour
         GetMacAddress();
 
         TryToLoadData();
+        TryToLoadSettings();
     }
 
     // Start is called before the first frame update
@@ -49,6 +79,18 @@ public class Global : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        if (prevSize != 0f && cam.orthographicSize != prevSize)
+        {
+            var size = bgParticles.main;
+            size.startSize = new ParticleSystem.MinMaxCurve(size.startSize.constantMin * (cam.orthographicSize / prevSize), size.startSize.constantMax * (cam.orthographicSize / prevSize));
+            var shape = bgParticles.shape;
+            shape.scale = new Vector3(cam.orthographicSize * cam.aspect * 2f, cam.orthographicSize * 2f, 1f);
+        }
+        prevSize = cam.orthographicSize;
+    }
+
+    public void UpdateBackground()
     {
 
     }
@@ -72,7 +114,6 @@ public class Global : MonoBehaviour
 
     public static IEnumerator MoveTo(Transform targetObject, Vector3 targetPosition, float motionSpeed)
     {
-        Debug.Log("Coroutine started: " + targetPosition);
         for (; ; )
         {
             if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, targetPosition)) > _maxDifference)
@@ -86,7 +127,6 @@ public class Global : MonoBehaviour
             }
             yield return new WaitForFixedUpdate();
         }
-        Debug.Log("Coroutine ended: " + targetPosition);
     }
 
     public static IEnumerator ChangeCameraSize(Camera cam, float targetSize, float lerpSpeed)

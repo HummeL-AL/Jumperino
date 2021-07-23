@@ -155,6 +155,7 @@ public class Shop : MonoBehaviour
             skinToBuy.GetChild(2).gameObject.SetActive(true);
 
             TryToSaveData();
+            TryToSaveSettings();
             TryToApplySkin(skinToBuy);
         }
     }
@@ -202,5 +203,7 @@ public class Shop : MonoBehaviour
                     break;
                 }
         }
+
+        TryToSaveSettings();
     }
 }

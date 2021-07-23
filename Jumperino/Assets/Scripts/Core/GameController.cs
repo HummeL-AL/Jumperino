@@ -188,7 +188,7 @@ public class GameController : MonoBehaviour
         curCoins = 0;
         UpdateScores();
 
-        camTargetPosition = Vector3.forward * -10f;
+        camTargetPosition = Vector3.forward * -10f + Vector3.right * platformDistance;
         ClearPlatforms();
         UpdatePlatforms();
         _player.transform.position = Vector3.zero;

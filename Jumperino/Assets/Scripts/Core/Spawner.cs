@@ -9,7 +9,6 @@ public class Spawner : MonoBehaviour
     public int maxPlatformsCount;
     public float maxAngleBetweenPlatforms;
     public float minDistanceBetweenPlatforms;
-    public float coinChance = 0.3f;
     public Vector3 startPlatformPosition;
 
     public GameObject platformPrefab;
@@ -19,7 +18,6 @@ public class Spawner : MonoBehaviour
     public static int _maxPlatformsCount;
     public static float _maxAngleBetweenPlatforms;
     public static float _minDistanceBetweenPlatforms;
-    public static float _coinChance;
     public static Vector3 _startPlatformPosition;
     public static GameObject _platformPrefab;
     public static GameObject _coinPrefab;
@@ -45,7 +43,6 @@ public class Spawner : MonoBehaviour
         curCameraSize.x = curCameraSize.y * cam.aspect;
 
         _maxPlatformsCount = maxPlatformsCount;
-        _coinChance = coinChance;
         _startPlatformPosition = startPlatformPosition;
         _platformPrefab = platformPrefab;
         _coinPrefab = coinPrefab;
@@ -129,17 +126,24 @@ public class Spawner : MonoBehaviour
         {
             if(platforms[platformId] == null)
             {
+                int difficulty = curCoins + platformId - 1;
+                float scaleValue = Mathf.Sqrt(difficulty / 200f);
+                float clampedScaleValue = Mathf.Clamp(scaleValue, 0f, 0.75f);
+                float clamped01ScaleValue = Mathf.Clamp01(scaleValue);
+
                 Vector3 spawnPos = new Vector3();
                 Vector3 prevPlatform = platforms[platformId - 1].position;
 
-                spawnPos.x = Random.Range(prevPlatform.x + _minDistanceBetweenPlatforms, prevPlatform.x + (curCameraSize.x) / 2f);
+                float minX = prevPlatform.x + (_minDistanceBetweenPlatforms * (1f - clamped01ScaleValue) + (curCameraSize.x * 0.4f * clamped01ScaleValue));
+                float maxX = prevPlatform.x + (_minDistanceBetweenPlatforms * (1f - clamped01ScaleValue) + (curCameraSize.x * 0.7f * clamped01ScaleValue));
+                spawnPos.x = Random.Range(minX, maxX);
                 float maxY = ((spawnPos.x - prevPlatform.x) * Mathf.Sin(_maxAngleBetweenPlatforms * Mathf.Deg2Rad)) / Mathf.Sin((90 - _maxAngleBetweenPlatforms) * Mathf.Deg2Rad);
-                spawnPos.y = Mathf.Clamp(Random.Range(prevPlatform.y - maxY, prevPlatform.y + maxY), -curCameraSize.y * 0.45f, curCameraSize.y * 0.35f);
+                spawnPos.y = Mathf.Clamp(Random.Range(prevPlatform.y - maxY, prevPlatform.y + maxY), -curCameraSize.y * 0.45f, curCameraSize.y * 0.3f);
 
                 Platform createdPlatform = CreatePlatform(spawnPos, Quaternion.identity).GetComponent<Platform>();
                 platforms[platformId] = createdPlatform.transform;
 
-                if (Random.Range(0f, 1f) < _coinChance)
+                if (Random.Range(0f, 1f) < clampedScaleValue)
                 {
                     createdPlatform.withCoin = true;
                     createdPlatform.coinStructure = (coinType)Random.Range(0, 3);

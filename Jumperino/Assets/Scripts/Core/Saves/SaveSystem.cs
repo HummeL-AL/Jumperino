@@ -9,7 +9,7 @@ public class SaveSystem : MonoBehaviour
 {
     public static void TryToSaveData()
     {
-        if(IsConnected())
+        if (IsConnected())
         {
             Debug.Log("Trying to save offline...");
             SaveDataOffline();
@@ -37,13 +37,25 @@ public class SaveSystem : MonoBehaviour
         }
     }
 
+    public static void TryToSaveSettings()
+    {
+        Debug.Log("Trying to save offline...");
+        SaveSettingsOffline();
+    }
+
+    public static void TryToLoadSettings()
+    {
+        Debug.Log("Trying to load offline...");
+        LoadSettingsOffline();
+    }
+
     public static async void SyncData()
     {
         Debug.Log("Sync initialized");
         PlayerData offlineData = LoadDataOffline();
         PlayerData onlineData = await LoadDataOnlineAsync();
 
-        if(offlineData.totalJumps > onlineData.totalJumps)
+        if (offlineData.totalJumps > onlineData.totalJumps)
         {
             Debug.Log("Offline data newer");
             AcceptData(offlineData);

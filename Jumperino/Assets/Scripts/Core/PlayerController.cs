@@ -11,6 +11,18 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed;
     public float basicJumpForce;
     public float maxTouchTime;
+    public float MaxTouchTime
+    {
+        get => maxTouchTime;
+        set
+        {
+            maxTouchTime = value;
+            if (jumpAnim)
+            {
+                jumpAnim.SetFloat("speedMultiplayer", 1f / maxTouchTime);
+            }
+        }
+    }
     public float jumpAngle;
 
     public PlayerSkin skin;
@@ -25,12 +37,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public AudioClip coinPickupSound;
+    public AudioClip platformHitSound;
+
     bool onGround;
     float touchTime;
 
     public Rigidbody2D rb;
     public Animator jumpAnim;
     public GameController game;
+
+    public Platform lastTouchedPlatform;
 
     void Awake()
     {
@@ -61,10 +78,10 @@ public class PlayerController : MonoBehaviour
                     {
                         if (!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
                         {
-                            if (touchTime < maxTouchTime)
+                            if (touchTime < MaxTouchTime)
                             {
                                 touchTime += Time.deltaTime;
-                                Mathf.Clamp(touchTime, 0f, maxTouchTime);
+                                Mathf.Clamp(touchTime, 0f, MaxTouchTime);
                             }
                         }
                         else if (touchTime != 0)
@@ -77,10 +94,10 @@ public class PlayerController : MonoBehaviour
                     {
                         if(!Physics.Raycast(touch.position, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
                         {
-                            if (touchTime < maxTouchTime)
+                            if (touchTime < MaxTouchTime)
                             {
                                 touchTime += Time.deltaTime;
-                                Mathf.Clamp(touchTime, 0f, maxTouchTime);
+                                Mathf.Clamp(touchTime, 0f, MaxTouchTime);
                             }
                         }
                         else if(touchTime != 0)
@@ -114,10 +131,10 @@ public class PlayerController : MonoBehaviour
         {
             if (!Physics.Raycast(Input.mousePosition, Vector3.forward, 30f, LayerMask.NameToLayer("UI")))
             {
-                if (touchTime < maxTouchTime)
+                if (touchTime < MaxTouchTime)
                 {
                     touchTime += Time.deltaTime;
-                    Mathf.Clamp(touchTime, 0f, maxTouchTime);
+                    Mathf.Clamp(touchTime, 0f, MaxTouchTime);
                 }
             }
             else if (touchTime != 0)
@@ -158,7 +175,7 @@ public class PlayerController : MonoBehaviour
 
     public void DoJump()
     {
-        float jumpForce = basicJumpForce * touchTime;
+        float jumpForce = basicJumpForce * (touchTime/MaxTouchTime);
         rb.AddForce(new Vector2(jumpForce * Mathf.Cos(jumpAngle * Mathf.Deg2Rad), jumpForce * Mathf.Sin(jumpAngle * Mathf.Deg2Rad)));
 
         _totalJumps++;
@@ -166,9 +183,16 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.GetComponent<Platform>())
+        Platform collidedPlatform = collision.gameObject.GetComponent<Platform>();
+        if (collision.gameObject.GetComponent<Platform>() && (!onGround || lastTouchedPlatform != collidedPlatform))
         {
-            Platform collidedPlatform = collision.gameObject.GetComponent<Platform>();
+            lastTouchedPlatform = collidedPlatform;
+
+            AudioSource.PlayClipAtPoint(platformHitSound, collision.transform.position, soundVolume);
+            if(skin.landParticles)
+            {
+                Instantiate(skin.landParticles, transform.position, Quaternion.identity);
+            }
 
             onGround = true;
 
@@ -193,6 +217,7 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<Coin>())
         {
+            AudioSource.PlayClipAtPoint(coinPickupSound, collision.transform.position, soundVolume);
             Destroy(collision.gameObject);
             curCoins++;
             _currentCoins++;

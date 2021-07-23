@@ -9,4 +9,5 @@ public class BackgroundSkin : ScriptableObject
     public int price;
 
     public Material material;
+    public ParticleSystem ambientParticles;
 }
