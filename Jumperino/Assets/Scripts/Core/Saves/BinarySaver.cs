@@ -99,20 +99,33 @@ public class BinarySaver
 
         if (File.Exists(path))
         {
-            FileStream stream = new FileStream(path, FileMode.Open);
-            PlayerSettings settings = formatter.Deserialize(stream) as PlayerSettings;
-            stream.Close();
+            try
+            {
+                FileStream stream = new FileStream(path, FileMode.Open);
+                PlayerSettings settings = formatter.Deserialize(stream) as PlayerSettings;
+                stream.Close();
 
-            pc.skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
-            _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/" + settings.platformSkin);
-            cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/" + settings.backgroundSkin);
+                pc.skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
+                _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/" + settings.platformSkin);
+                cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/" + settings.backgroundSkin);
 
-            pc.MaxTouchTime = settings.jumpTime;
-            musicVolume = settings.musicVolume;
-            soundVolume = settings.soundVolume;
+                pc.MaxTouchTime = settings.jumpTime;
+                musicVolume = settings.musicVolume;
+                soundVolume = settings.soundVolume;
 
-            return settings;
+                return settings;
+            }
+            catch (Exception)
+            {
+                pc.skin = Resources.Load<PlayerSkin>("Skins/Player/Default");
+                _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/Default");
+                cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/Default");
 
+                pc.MaxTouchTime = 1f;
+                musicVolume = 1f;
+                soundVolume = 1f;
+                return null;
+            }
         }
         else
         {
