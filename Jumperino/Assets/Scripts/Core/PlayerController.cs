@@ -204,12 +204,6 @@ public class PlayerController : MonoBehaviour
 
 
             freeMove = true;
-            //camTargetPosition = new Vector3(collidedPlatform.transform.position.x + platformDistance, 0f, -10f);
-            //if (moveCoroutine != null)
-            //{
-            //    StopCoroutine(moveCoroutine);
-            //}
-            //moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, 5f));
         }
     }
 

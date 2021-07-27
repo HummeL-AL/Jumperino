@@ -48,13 +48,13 @@ public class Global : MonoBehaviour
             RenderSettings.skybox = skin.material;
             if(bgParticles)
             {
-                Destroy(bgParticles);
+                Destroy(bgParticles.gameObject);
             }
             else
             {
                 if(skin.ambientParticles)
                 {
-                    bgParticles = Instantiate(skin.ambientParticles, Vector3.zero, Quaternion.identity, canvas.transform);
+                    bgParticles = Instantiate(skin.ambientParticles, Vector3.forward, Quaternion.identity, canvas.transform);
                 }
             }
         }
@@ -80,7 +80,7 @@ public class Global : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (prevSize != 0f && cam.orthographicSize != prevSize)
+        if (bgParticles && prevSize != 0f && cam.orthographicSize != prevSize)
         {
             var size = bgParticles.main;
             size.startSize = new ParticleSystem.MinMaxCurve(size.startSize.constantMin * (cam.orthographicSize / prevSize), size.startSize.constantMax * (cam.orthographicSize / prevSize));

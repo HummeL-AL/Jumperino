@@ -12,16 +12,9 @@ public class Shop : MonoBehaviour
 {
     public GameObject shopItem;
 
-    Transform playerSkinPanel;
-    Transform platformSkinPanel;
-    Transform backgroundSkinPanel;
-
-    private void Awake()
-    {
-        playerSkinPanel = transform.GetChild(0).GetChild(0).GetChild(0);
-        platformSkinPanel = transform.GetChild(1).GetChild(0).GetChild(0);
-        backgroundSkinPanel = transform.GetChild(2).GetChild(0).GetChild(0);
-    }
+    public Transform playerSkinPanel;
+    public Transform platformSkinPanel;
+    public Transform backgroundSkinPanel;
 
     // Start is called before the first frame update
     void Start()

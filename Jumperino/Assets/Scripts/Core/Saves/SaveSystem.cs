@@ -13,7 +13,6 @@ public class SaveSystem : MonoBehaviour
         {
             Debug.Log("Trying to save offline...");
             SaveDataOffline();
-            Debug.Log("Trying to sync data...");
             SyncData();
         }
         else
