@@ -11,16 +11,32 @@ public class Settings : MonoBehaviour
     public Slider musicSlider;
     public Slider soundSlider;
 
+    private void Awake()
+    {
+        TryToLoadSettings();
+
+        timeSlider.value = pc.MaxTouchTime;
+        musicSlider.value = cam.GetComponent<Global>().MusicVolume;
+        soundSlider.value = soundVolume;
+
+        SetText();
+    }
+
     public void UpdateSettings()
     {
-        transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = timeSlider.value.ToString("F3");
-        transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = musicSlider.value.ToString("F3");
-        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = soundSlider.value.ToString("F3");
+        SetText();
 
         pc.MaxTouchTime = timeSlider.value;
         cam.GetComponent<Global>().MusicVolume = musicSlider.value;
         soundVolume = soundSlider.value;
 
         TryToSaveSettings();
+    }
+
+    public void SetText()
+    {
+        transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = timeSlider.value.ToString("F2");
+        transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = musicSlider.value.ToString("F2");
+        transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = soundSlider.value.ToString("F2");
     }
 }

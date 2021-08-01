@@ -8,7 +8,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:410052049137:android:eef8c87d813cd701131150",
+        "mobilesdk_app_id": "1:410052049137:android:7763746013416103131150",
+        "android_client_info": {
+          "package_name": "com.Joicy.Jumperino"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410052049137-3gi6kpqbt681687md68imtbktcou58tr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9EIIhXxkB1WhQE7DQdhpGAJDCnSljwwQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410052049137-3gi6kpqbt681687md68imtbktcou58tr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410052049137:android:05ee7a22b13040ac131150",
         "android_client_info": {
           "package_name": "com.PlayBox.Jumperino"
         }

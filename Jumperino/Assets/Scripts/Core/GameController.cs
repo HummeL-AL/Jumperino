@@ -1,9 +1,11 @@
 using TMPro;
 using UnityEngine;
+using Firebase.Analytics;
 using static Global;
 using static Spawner;
 using static SaveSystem;
 using static PlayerData;
+using static AdsManager;
 
 public class GameController : MonoBehaviour
 {
@@ -32,9 +34,6 @@ public class GameController : MonoBehaviour
     public static bool gameStarted = false;
     public static bool gameOver = false;
     public static bool secondLifeUsed = false;
-
-    public static Vector3 lastPosition;
-    public static Quaternion lastRotation;
 
     public static Vector3 camTargetPosition;
     public static float targetSize;
@@ -159,6 +158,11 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
+        _totalGamesPlayed++;
+        CheckGamesCount();
+
+        pc.transform.parent = null;
         platformDistance = basicSize * (Camera.main.aspect / basicAspect);
 
         camTargetPosition = new Vector3(platformDistance, 0f, -10f);
@@ -184,6 +188,12 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
+        _totalGamesPlayed++;
+        CheckGamesCount();
+
+        pc.transform.parent = null;
         curScores = 0;
         curCoins = 0;
         UpdateScores();
@@ -206,12 +216,21 @@ public class GameController : MonoBehaviour
         freeMove = false;
 
         TryToSaveData();
+
+        gamesToAd -= 1;
+        CheckInterstitialAd();
     }
 
-    public void ReplayGame()
+    public void TryToReplay()
     {
-        _player.transform.position = lastPosition;
-        _player.transform.rotation = lastRotation;
+        TryToReplayAd();
+    }
+
+    public static void ReplayGame()
+    {
+        pc.transform.parent = null;
+        _player.transform.position = pc.lastTouchedPlatform.transform.position + Vector3.up;
+        _player.transform.rotation = Quaternion.identity;
         pc.rb.velocity = Vector2.zero;
         pc.rb.angularVelocity = 0f;
         pc.enabled = true;
@@ -219,6 +238,9 @@ public class GameController : MonoBehaviour
 
     public void ExitToMenu()
     {
+        FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
+
+        pc.transform.parent = null;
         ClearPlatforms();
         GameStarted = false;
         curScores = 0;
@@ -247,6 +269,9 @@ public class GameController : MonoBehaviour
         sizeCoroutine = StartCoroutine(ChangeCameraSize(cam, targetSize, zoomSpeed));
 
         TryToSaveData();
+
+        gamesToAd -= 1;
+        CheckInterstitialAd();
     }
 
     public static void UpdateScores()

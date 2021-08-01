@@ -65,9 +65,13 @@ public class Scoreboard : MonoBehaviour
 
         var DBTask = root.Child("Devices").OrderByChild(sortValue).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
         DataSnapshot snap = DBTask.Result;
-        foreach(Transform child in scoreboardTable)
+
+        DBTask = root.Child("Devices").EqualTo(macAdress).GetValueAsync();
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+        DataSnapshot curPlayerSnap = DBTask.Result;
+
+        foreach (Transform child in scoreboardTable)
         {
             Destroy(child.gameObject);
         }
@@ -76,13 +80,30 @@ public class Scoreboard : MonoBehaviour
         createdLine.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "NICKNAME";
         createdLine.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = sortValue;
 
+        int linesAdded = 0;
+        bool playerListed = false;
         foreach (DataSnapshot childSnapshot in snap.Children.Reverse<DataSnapshot>())
         {
             createdLine = Instantiate(linePrefab, scoreboardTable);
 
-            Debug.Log(childSnapshot.Child("Nickname"));
-            createdLine.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = childSnapshot.Child("Nickname").Value.ToString();
-            createdLine.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = childSnapshot.Child(sortValue).Value.ToString();
+            if (!playerListed && linesAdded == 100)
+            {
+                createdLine.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = curPlayerSnap.Child("Nickname").Value.ToString();
+                createdLine.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = curPlayerSnap.Child(sortValue).Value.ToString();
+                linesAdded++;
+                break;
+            }
+            else
+            {
+                if(childSnapshot.Value == curPlayerSnap.Value)
+                {
+                    playerListed = true;
+                }
+
+                createdLine.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = childSnapshot.Child("Nickname").Value.ToString();
+                createdLine.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = childSnapshot.Child(sortValue).Value.ToString();
+                linesAdded++;
+            }
         }
     }
 

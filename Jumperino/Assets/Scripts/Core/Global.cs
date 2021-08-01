@@ -60,6 +60,12 @@ public class Global : MonoBehaviour
         }
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBeforeSceneLoadRuntimeMethod()
+    {
+        Application.targetFrameRate = Screen.currentResolution.refreshRate;
+    }
+
     private void Awake()
     {
         _maxDifference = maxDifference;
@@ -68,7 +74,6 @@ public class Global : MonoBehaviour
         GetMacAddress();
 
         TryToLoadData();
-        TryToLoadSettings();
     }
 
     // Start is called before the first frame update

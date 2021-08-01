@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Default
   price: 0
-  material: {fileID: 2100000, guid: 0ffaa0b7117ba8c47a9d05ae701d4b4d, type: 2}
+  material: {fileID: 2100000, guid: 7297f8aba5a190244bb62d946e11d52b, type: 2}
+  ambientParticles: {fileID: 0}

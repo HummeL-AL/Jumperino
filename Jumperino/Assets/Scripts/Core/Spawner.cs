@@ -177,6 +177,7 @@ public class Spawner : MonoBehaviour
             if(platforms[platformId] == null)
             {
                 int difficulty = curScores + platformId - 1;
+
                 float minHeight = -curCameraSize.y * 0.45f;
                 float maxHeight = curCameraSize.y * 0.3f;
 

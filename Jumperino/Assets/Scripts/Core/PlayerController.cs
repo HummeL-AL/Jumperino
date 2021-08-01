@@ -162,6 +162,9 @@ public class PlayerController : MonoBehaviour
             GameOver = true;
             rb.simulated = false;
             rb.velocity = Vector3.zero;
+            touchTime = 0;
+            jumpAnim.SetBool("preparingJump", false);
+
             this.enabled = false;
         }
     }
@@ -175,6 +178,8 @@ public class PlayerController : MonoBehaviour
 
     public void DoJump()
     {
+        transform.parent = null;
+
         float jumpForce = basicJumpForce * (touchTime/MaxTouchTime);
         rb.AddForce(new Vector2(jumpForce * Mathf.Cos(jumpAngle * Mathf.Deg2Rad), jumpForce * Mathf.Sin(jumpAngle * Mathf.Deg2Rad)));
 
@@ -187,6 +192,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.GetComponent<Platform>() && (!onGround || lastTouchedPlatform != collidedPlatform))
         {
             lastTouchedPlatform = collidedPlatform;
+            transform.SetParent(lastTouchedPlatform.transform);
 
             AudioSource.PlayClipAtPoint(platformHitSound, collision.transform.position, soundVolume);
             if(skin.landParticles)
@@ -198,10 +204,6 @@ public class PlayerController : MonoBehaviour
 
             UpdateCurPlatform(collidedPlatform.transform);
             UpdateScores();
-
-            lastPosition = collidedPlatform.transform.position + Vector3.up;
-            lastRotation = transform.rotation;
-
 
             freeMove = true;
         }

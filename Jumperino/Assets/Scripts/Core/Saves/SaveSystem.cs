@@ -90,6 +90,8 @@ public class SaveSystem : MonoBehaviour
         _totalJumps = acceptedData.totalJumps;
         _currentCoins = acceptedData.currentCoins;
         _totalCoins = acceptedData.totalCoins;
+        _totalAdsWatched = acceptedData.totalAdsWatched;
+        _totalGamesPlayed = acceptedData.totalGamesPlayed;
 
         _unlockedPlayerSkins = acceptedData.unlockedPlayerSkins;
         _unlockedPlatformsSkins = acceptedData.unlockedPlatformsSkins;

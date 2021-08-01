@@ -23,6 +23,8 @@ public class BinarySaver
         data.totalJumps = _totalJumps;
         data.currentCoins = _currentCoins;
         data.totalCoins = _totalCoins;
+        data.totalAdsWatched = _totalAdsWatched;
+        data.totalGamesPlayed = _totalGamesPlayed;
         data.saveTime = Convert.ToUInt64(GetTime());
 
         data.unlockedPlayerSkins = _unlockedPlayerSkins;
@@ -53,6 +55,8 @@ public class BinarySaver
             _totalJumps = data.totalJumps;
             _currentCoins = data.currentCoins;
             _totalCoins = data.totalCoins;
+            _totalAdsWatched = data.totalAdsWatched;
+            _totalGamesPlayed = data.totalGamesPlayed;
 
             _unlockedPlayerSkins = data.unlockedPlayerSkins;
             _unlockedPlatformsSkins = data.unlockedPlatformsSkins;
@@ -105,7 +109,7 @@ public class BinarySaver
                 PlayerSettings settings = formatter.Deserialize(stream) as PlayerSettings;
                 stream.Close();
 
-                pc.skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
+                pc.Skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
                 _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/" + settings.platformSkin);
                 cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/" + settings.backgroundSkin);
 

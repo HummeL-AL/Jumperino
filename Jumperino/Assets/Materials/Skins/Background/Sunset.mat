@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sunset
-  m_Shader: {fileID: -6465566751694194690, guid: 5f89b74f451a94e4996fd960c8fb3ecb, type: 3}
+  m_Shader: {fileID: 4800000, guid: 022407b6086a1564f8b04e908d24e445, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -79,6 +79,7 @@ Material:
     - Vector1_cb0bd08ce8a1427585a9c3bd95c50b49: 0.5
     - _AlphaClip: 0
     - _Blend: 0
+    - _BlendHeight: 0.5
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -107,9 +108,11 @@ Material:
     - Color_294a947ea05149a4bd72d5c181022cb4: {r: 1, g: 0.5706718, b: 0, a: 0}
     - Color_46a25f0d415f42ca86a736a148555790: {r: 0, g: 0.876276, b: 1, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BottomColor: {r: 0.73333335, g: 0.41568628, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TopColor: {r: 0.007843138, g: 0.6392157, b: 0.7294118, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2363911706517638755
 MonoBehaviour:

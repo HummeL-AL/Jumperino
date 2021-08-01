@@ -8,7 +8,7 @@ public class BuyButton : MonoBehaviour
 
     public void Awake()
     {
-        shop = transform.parent.parent.parent.parent.parent.GetComponent<Shop>();
+        shop = transform.parent.parent.parent.parent.parent.parent.parent.parent.GetComponent<Shop>();
     }
 
     public void Buy()
