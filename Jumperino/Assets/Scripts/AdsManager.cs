@@ -1,31 +1,54 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Firebase.Auth;
 using Firebase.Analytics;
 using GoogleMobileAds.Api;
-using static Global;
+using static SaveSystem;
 using static PlayerData;
 using static GameController;
 
 public class AdsManager : MonoBehaviour
 {
-    public static int gamesToAd = 1;
-    public static int numOfRetries = 5;
+    public GameObject ageConfirmer;
 
-    static Vector2 temp = new Vector2();
+    public static int gamesToAd = 5;
+    public static int numOfRetries = 5;
 
     static InterstitialAd interstitial;
     static RewardedAd rewarded;
+    static List<String> testDeviceIds = new List<string>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void OnBeforeSceneLoadRuntimeMethod()
+    void OnBeforeSceneLoadRuntimeMethod()
     {
-        List<String> testDeviceIds = new List<string>();
-        testDeviceIds.Add("33BE2250B43518CCDA7DE426D04EE231");
-        RequestConfiguration configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).build();
-        MobileAds.SetRequestConfiguration(configuration);
+    }
 
+    public void Start()
+    {
+        TryToLoadData();
+
+        if (_ageEntered)
+        {
+            ageConfirmer.SetActive(false);
+            SetConfiguration();
+        }
+
+        testDeviceIds.Add("33BE2250B43518CCDA7DE426D04EE231");
+
+    }
+
+    public static void SetConfiguration()
+    {
+        RequestConfiguration configuration;
+        if (_under13)
+        {
+            configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.True).SetMaxAdContentRating(MaxAdContentRating.G).build();
+        }
+        else
+        {
+            configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).build();
+        }
+        MobileAds.SetRequestConfiguration(configuration);
         MobileAds.Initialize(initStatus => { });
 
         RequestInterstitialAd();
@@ -67,10 +90,8 @@ public class AdsManager : MonoBehaviour
         {
             if (interstitial.IsLoaded())
             {
-                temp.x = cam.GetComponent<Global>().MusicVolume;
-                temp.y = soundVolume;
                 interstitial.Show();
-                gamesToAd = 1;
+                gamesToAd = 5;
             }
 
             RequestInterstitialAd();
@@ -81,8 +102,6 @@ public class AdsManager : MonoBehaviour
     {
         if (rewarded.IsLoaded())
         {
-            temp.x = cam.GetComponent<Global>().MusicVolume;
-            temp.y = soundVolume;
             rewarded.Show();
         }
 
@@ -202,8 +221,8 @@ public class AdsManager : MonoBehaviour
     public static void HandleOnInterstitialAdOpened(object sender, EventArgs args)
     {
         Debug.Log("Ad start showing");
-        cam.GetComponent<Global>().MusicVolume = 0f;
-        soundVolume = 0f;
+
+        AudioListener.volume = 0f;
     }
 
     public static void HandleOnInterstitialAdClosed(object sender, EventArgs args)
@@ -216,8 +235,7 @@ public class AdsManager : MonoBehaviour
             Debug.Log("Add destroyed");
         }
 
-        cam.GetComponent<Global>().MusicVolume = temp.x;
-        soundVolume = temp.y;
+        AudioListener.volume = 1f;
 
         RequestInterstitialAd();
     }
@@ -230,8 +248,8 @@ public class AdsManager : MonoBehaviour
     public static void HandleOnRewardedAdOpened(object sender, EventArgs args)
     {
         Debug.Log("Ad start showing");
-        cam.GetComponent<Global>().MusicVolume = 0f;
-        soundVolume = 0f;
+
+        AudioListener.volume = 0f;
     }
 
     public static void HandleOnRewardedAdClosed(object sender, EventArgs args)
@@ -241,11 +259,10 @@ public class AdsManager : MonoBehaviour
         if (rewarded != null)
         {
             rewarded.Destroy();
-            Debug.Log("Add rDestroyed");
+            Debug.Log("Add Destroyed");
         }
 
-        cam.GetComponent<Global>().MusicVolume = temp.x;
-        soundVolume = temp.y;
+        AudioListener.volume = 1f;
 
         RequestRewardedAd();
     }

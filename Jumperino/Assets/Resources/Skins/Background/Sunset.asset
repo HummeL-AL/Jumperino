@@ -15,3 +15,5 @@ MonoBehaviour:
   skinName: Sunset
   price: 50
   material: {fileID: 2100000, guid: 7412476a16baeab4d93c1e47116ac5be, type: 2}
+  ambientParticles: {fileID: 0}
+  ambient: {fileID: 8300000, guid: 77b8b4e310616844c9764b235e0c5603, type: 3}

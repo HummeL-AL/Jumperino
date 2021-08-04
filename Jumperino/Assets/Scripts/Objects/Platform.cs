@@ -34,7 +34,7 @@ public class Platform : MonoBehaviour
 
         if(moving)
         {
-           StartCoroutine(CycleMove(transform, transform.position, targetPosition, speed));
+           StartCoroutine(CycleMove(transform, initialPosition, targetPosition, speed));
         }
     }
 

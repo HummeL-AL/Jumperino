@@ -16,3 +16,4 @@ MonoBehaviour:
   price: 0
   material: {fileID: 2100000, guid: 7297f8aba5a190244bb62d946e11d52b, type: 2}
   ambientParticles: {fileID: 0}
+  ambient: {fileID: 8300000, guid: 77b8b4e310616844c9764b235e0c5603, type: 3}

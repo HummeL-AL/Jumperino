@@ -6,7 +6,6 @@ using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 using static PlayerData;
-using static SaveSystem;
 using static GameController;
 using static DatabaseController;
 
@@ -46,9 +45,18 @@ public class Global : MonoBehaviour
         {
             skin = value;
             RenderSettings.skybox = skin.material;
-            if(bgParticles)
+
+            AudioSource ambient = GetComponent<AudioSource>();
+            ambient.clip = skin.ambient;
+            ambient.Play();
+
+            if (bgParticles)
             {
                 Destroy(bgParticles.gameObject);
+                if (skin.ambientParticles)
+                {
+                    bgParticles = Instantiate(skin.ambientParticles, Vector3.forward, Quaternion.identity, canvas.transform);
+                }
             }
             else
             {
@@ -72,8 +80,6 @@ public class Global : MonoBehaviour
         _nicknameField = nicknameField;
 
         GetMacAddress();
-
-        TryToLoadData();
     }
 
     // Start is called before the first frame update

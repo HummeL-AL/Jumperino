@@ -178,8 +178,6 @@ public class PlayerController : MonoBehaviour
 
     public void DoJump()
     {
-        transform.parent = null;
-
         float jumpForce = basicJumpForce * (touchTime/MaxTouchTime);
         rb.AddForce(new Vector2(jumpForce * Mathf.Cos(jumpAngle * Mathf.Deg2Rad), jumpForce * Mathf.Sin(jumpAngle * Mathf.Deg2Rad)));
 
@@ -211,14 +209,30 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.GetComponent<Coin>())
+        if (collision.gameObject.GetComponent<Coin>())
         {
-            AudioSource.PlayClipAtPoint(coinPickupSound, collision.transform.position, soundVolume);
+            collision.gameObject.GetComponent<Coin>().playerTouched = true;
             Destroy(collision.gameObject);
-            curCoins++;
-            _currentCoins++;
-            _totalCoins++;
-            UpdateScores();
         }
+        else if (collision.gameObject.GetComponent<Platform>())
+        {
+            float angle = transform.localEulerAngles.z;
+            Debug.Log("Angle: " + angle);
+            if((angle > 45 && angle < 135) || ( angle > 225 && angle < 315))
+            {
+                Debug.Log("horizontal");
+                jumpAnim.SetBool("horizontal", true);
+            }
+            else
+            {
+                Debug.Log("vertical");
+                jumpAnim.SetBool("horizontal", false);
+            }
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        transform.parent = null;
     }
 }

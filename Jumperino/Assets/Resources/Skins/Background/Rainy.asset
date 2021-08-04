@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d961b68a06c0545851249dde1af890, type: 3}
+  m_Name: Rainy
+  m_EditorClassIdentifier: 
+  skinName: Rainy
+  price: 100
+  material: {fileID: 2100000, guid: a0a3cf5a401c90f4f9bca0e5e9b8ce07, type: 2}
+  ambientParticles: {fileID: 4981169922591021174, guid: 05a58c7fa62cb8d469337c3ec4413c0a, type: 3}
+  ambient: {fileID: 8300000, guid: f4ab6b5bd189cc543aadc2824d5aff23, type: 3}

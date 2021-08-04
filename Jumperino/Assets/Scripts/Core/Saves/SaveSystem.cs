@@ -11,13 +11,13 @@ public class SaveSystem : MonoBehaviour
     {
         if (IsConnected())
         {
-            Debug.Log("Trying to save offline...");
+            Debug.Log("Trying to save data offline...");
             SaveDataOffline();
             SyncData();
         }
         else
         {
-            Debug.Log("Trying to save offline...");
+            Debug.Log("Trying to save data offline...");
             SaveDataOffline();
         }
     }
@@ -31,20 +31,20 @@ public class SaveSystem : MonoBehaviour
         }
         else
         {
-            Debug.Log("Trying to load offline...");
+            Debug.Log("Trying to load data offline...");
             LoadDataOffline();
         }
     }
 
     public static void TryToSaveSettings()
     {
-        Debug.Log("Trying to save offline...");
+        Debug.Log("Trying to save settings offline...");
         SaveSettingsOffline();
     }
 
     public static void TryToLoadSettings()
     {
-        Debug.Log("Trying to load offline...");
+        Debug.Log("Trying to load settings offline...");
         LoadSettingsOffline();
     }
 

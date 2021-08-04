@@ -10,4 +10,5 @@ public class BackgroundSkin : ScriptableObject
 
     public Material material;
     public ParticleSystem ambientParticles;
+    public AudioClip ambient;
 }

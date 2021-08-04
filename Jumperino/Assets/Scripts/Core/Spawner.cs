@@ -218,28 +218,37 @@ public class Spawner : MonoBehaviour
 
                     bool up = false;
 
-                    if (spawnPos.y + _moveMinDistance.Evaluate(difficulty) < minHeight && spawnPos.y - _moveMinDistance.Evaluate(difficulty) > maxHeight)
+                    Debug.Log("Height: " + spawnPos.y + " MinDistance: " + _moveMinDistance.Evaluate(difficulty) + " MaxDistance: " + _moveMaxDistance.Evaluate(difficulty));
+                    Debug.Log("Min height: " + minHeight + " Max height: " + maxHeight);
+                    if (spawnPos.y + _moveMinDistance.Evaluate(difficulty) < maxHeight && spawnPos.y - _moveMinDistance.Evaluate(difficulty) > minHeight)
                     {
                         up = Convert.ToBoolean(Random.Range(0, 2));
                     }
-                    else if (spawnPos.y + _moveMinDistance.Evaluate(difficulty) < minHeight) up = true;
+                    else if (spawnPos.y + _moveMinDistance.Evaluate(difficulty) < maxHeight)
+                    {
+                        up = true;
+                    }
 
                     Vector3 targetPos = new Vector3();
                     targetPos.x = spawnPos.x;
 
+                    float minY;
                     if (up)
                     {
-                        float minY = Mathf.Clamp(spawnPos.y + _moveMinDistance.Evaluate(difficulty), minHeight, maxHeight);
+                        minY = Mathf.Clamp(spawnPos.y + _moveMinDistance.Evaluate(difficulty), minHeight, maxHeight);
                         maxY = Mathf.Clamp(spawnPos.y + _moveMaxDistance.Evaluate(difficulty), minHeight, maxHeight);
                         targetPos.y = Random.Range(minY, maxY);
                     }
                     else
                     {
-                        float minY = Mathf.Clamp(spawnPos.y - _moveMinDistance.Evaluate(difficulty), minHeight, maxHeight);
-                        maxY = Mathf.Clamp(spawnPos.y - _moveMaxDistance.Evaluate(difficulty), minHeight, maxHeight);
+                        minY = Mathf.Clamp(spawnPos.y - _moveMaxDistance.Evaluate(difficulty), minHeight, maxHeight);
+                        maxY = Mathf.Clamp(spawnPos.y - _moveMinDistance.Evaluate(difficulty), minHeight, maxHeight);
                         targetPos.y = Random.Range(minY, maxY);
                     }
 
+                    Debug.Log("Min Y: " + minY + " Max Y: " + maxY + " Choosed: " + targetPos.y);
+
+                    createdPlatform.initialPosition = spawnPos;
                     createdPlatform.targetPosition = targetPos;
                     createdPlatform.speed = Random.Range(_moveMinSpeed.Evaluate(difficulty), _moveMaxSpeed.Evaluate(difficulty));
                 }
