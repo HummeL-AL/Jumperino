@@ -72,6 +72,17 @@ public class PlayerController : MonoBehaviour
                 case TouchPhase.Began:
                     {
                         jumpAnim.SetBool("preparingJump", true);
+
+                        float angle = transform.localEulerAngles.z;
+                        Debug.Log("Angle: " + angle);
+                        if ((angle > 45 && angle < 135) || (angle > 225 && angle < 315))
+                        {
+                            jumpAnim.SetBool("horizontal", true);
+                        }
+                        else
+                        {
+                            jumpAnim.SetBool("horizontal", false);
+                        }
                         break;
                     }
                 case TouchPhase.Moved:
@@ -125,6 +136,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             jumpAnim.SetBool("preparingJump", true);
+
+            float angle = transform.localEulerAngles.z;
+            Debug.Log("Angle: " + angle);
+            if ((angle > 45 && angle < 135) || (angle > 225 && angle < 315))
+            {
+                jumpAnim.SetBool("horizontal", true);
+            }
+            else
+            {
+                jumpAnim.SetBool("horizontal", false);
+            }
         }
 
         if (Input.GetMouseButton(0))
@@ -178,6 +200,7 @@ public class PlayerController : MonoBehaviour
 
     public void DoJump()
     {
+        transform.parent = null;
         float jumpForce = basicJumpForce * (touchTime/MaxTouchTime);
         rb.AddForce(new Vector2(jumpForce * Mathf.Cos(jumpAngle * Mathf.Deg2Rad), jumpForce * Mathf.Sin(jumpAngle * Mathf.Deg2Rad)));
 
@@ -213,21 +236,6 @@ public class PlayerController : MonoBehaviour
         {
             collision.gameObject.GetComponent<Coin>().playerTouched = true;
             Destroy(collision.gameObject);
-        }
-        else if (collision.gameObject.GetComponent<Platform>())
-        {
-            float angle = transform.localEulerAngles.z;
-            Debug.Log("Angle: " + angle);
-            if((angle > 45 && angle < 135) || ( angle > 225 && angle < 315))
-            {
-                Debug.Log("horizontal");
-                jumpAnim.SetBool("horizontal", true);
-            }
-            else
-            {
-                Debug.Log("vertical");
-                jumpAnim.SetBool("horizontal", false);
-            }
         }
     }
 

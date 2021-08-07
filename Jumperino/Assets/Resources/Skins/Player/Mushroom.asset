@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Mushroom
+  m_EditorClassIdentifier: 
+  skinName: Mushroom
+  price: 100
+  mesh: {fileID: -5495902117074765545, guid: 354a008eb70e5c04b8c449f64d1fffe7, type: 3}
+  materials:
+  - {fileID: 2100000, guid: cb0f4bc5e43425a4aa96dc65d6bdd1fe, type: 2}
+  landParticles: {fileID: 7104785319553585929, guid: ab84251b0589e14478ca75fe56def255, type: 3}

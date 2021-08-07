@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skinName: Default
   price: 0
-  sprite: {fileID: 21300000, guid: 5bcac166d63b7004a99ff2efbb865761, type: 3}
-  colliderSize: {x: 1.9375, y: 0.625}
+  sprite: {fileID: 21300000, guid: 50d226219a0f1e34fb8538a6c295f504, type: 3}
+  colliderSize: {x: 1.9375, y: 0.625, z: 0}

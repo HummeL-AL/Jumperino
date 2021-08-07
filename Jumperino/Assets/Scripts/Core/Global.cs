@@ -176,6 +176,10 @@ public class Global : MonoBehaviour
                 };
             }
         }
+        if(macAdress == "")
+        {
+            macAdress = SystemInfo.deviceUniqueIdentifier;
+        }
     }
 
     public static string GetTime()

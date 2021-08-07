@@ -162,6 +162,8 @@ public class GameController : MonoBehaviour
         _totalGamesPlayed++;
         CheckGamesCount();
 
+        curScores = _maxScores / 3;
+
         pc.transform.parent = null;
         platformDistance = basicSize * (Camera.main.aspect / basicAspect);
 
@@ -194,7 +196,7 @@ public class GameController : MonoBehaviour
         CheckGamesCount();
 
         pc.transform.parent = null;
-        curScores = 0;
+        curScores = _maxScores / 3;
         curCoins = 0;
         UpdateScores();
 
@@ -243,7 +245,7 @@ public class GameController : MonoBehaviour
         pc.transform.parent = null;
         ClearPlatforms();
         GameStarted = false;
-        curScores = 0;
+        curScores = _maxScores / 3;
         curCoins = 0;
         UpdateScores();
 

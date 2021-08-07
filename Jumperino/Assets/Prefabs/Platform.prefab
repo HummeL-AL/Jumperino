@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5bcac166d63b7004a99ff2efbb865761, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50d226219a0f1e34fb8538a6c295f504, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9375, y: 0.625}
+  m_Size: {x: 1.95, y: 0.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -99,10 +99,10 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.42509872, y: 0.44150943, z: 0.42509872, w: 0.10566038}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.9375, y: 0.625}
-    newSize: {x: 1.9375, y: 0.625}
+    oldSize: {x: 1.9433085, y: 0.6528302}
+    newSize: {x: 1.95, y: 0.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -126,3 +126,7 @@ MonoBehaviour:
   activated: 0
   withCoin: 0
   coinStructure: 0
+  moving: 0
+  speed: 0
+  initialPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}

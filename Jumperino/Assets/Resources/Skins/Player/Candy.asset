@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Candy
+  m_EditorClassIdentifier: 
+  skinName: Candy
+  price: 50
+  mesh: {fileID: -5495902117074765545, guid: f933b4ace61c72c48b9bd00b39ce8424, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 2d69793a8cf495d42a71f5254127be19, type: 2}
+  landParticles: {fileID: 0}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Washing_Machine
+  m_EditorClassIdentifier: 
+  skinName: Washing_Machine
+  price: 100
+  mesh: {fileID: 4493585093827132993, guid: cfb1e08815303ef47bcb26030450c8f4, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 03312202e298bc04799007b99ad1694d, type: 2}
+  - {fileID: 2100000, guid: 60a14db59bd6ed24b95441fd5fbabe03, type: 2}
+  - {fileID: 2100000, guid: b77d2fca2edcc884c87c7db117698f92, type: 2}
+  - {fileID: 2100000, guid: e1022b30d99315d48af223bd7ee6ebff, type: 2}
+  - {fileID: 2100000, guid: 9f93fa49d917e1f4c80c4844f3d20edb, type: 2}
+  landParticles: {fileID: 0}

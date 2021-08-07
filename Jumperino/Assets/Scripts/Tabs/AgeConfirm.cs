@@ -7,6 +7,8 @@ using static AdsManager;
 
 public class AgeConfirm : MonoBehaviour
 {
+    public GameObject play;
+
     public void SetAgeUnder13()
     {
         _under13 = true;
@@ -15,6 +17,7 @@ public class AgeConfirm : MonoBehaviour
 
         TryToSaveData();
 
+        play.SetActive(true);
         gameObject.SetActive(false);
     }
 
@@ -26,6 +29,7 @@ public class AgeConfirm : MonoBehaviour
 
         TryToSaveData();
 
+        play.SetActive(true);
         gameObject.SetActive(false);
     }
 

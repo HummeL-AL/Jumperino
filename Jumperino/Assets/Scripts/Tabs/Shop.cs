@@ -109,7 +109,7 @@ public class Shop : MonoBehaviour
         int skinPrice = Convert.ToInt32(skinToBuy.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text);
         string skinName = skinToBuy.name;
 
-        if (_currentCoins > skinPrice)
+        if (_currentCoins >= skinPrice)
         {
             _currentCoins -= skinPrice;
 

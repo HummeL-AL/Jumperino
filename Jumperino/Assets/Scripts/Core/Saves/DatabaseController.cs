@@ -15,6 +15,8 @@ public static class DatabaseController
     {
         Debug.Log("Save data online initialized");
         DatabaseReference dir = FirebaseDatabase.DefaultInstance.RootReference.Child("Devices").Child(macAdress);
+        Debug.Log("Mac: " + macAdress);
+        Debug.Log("Save to: " + dir);
 
         dir.Child("Nickname").SetValueAsync(_nickname);
         dir.Child("High score").SetValueAsync(_maxScores);

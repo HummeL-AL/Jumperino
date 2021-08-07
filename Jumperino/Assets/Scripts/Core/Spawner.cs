@@ -218,8 +218,6 @@ public class Spawner : MonoBehaviour
 
                     bool up = false;
 
-                    Debug.Log("Height: " + spawnPos.y + " MinDistance: " + _moveMinDistance.Evaluate(difficulty) + " MaxDistance: " + _moveMaxDistance.Evaluate(difficulty));
-                    Debug.Log("Min height: " + minHeight + " Max height: " + maxHeight);
                     if (spawnPos.y + _moveMinDistance.Evaluate(difficulty) < maxHeight && spawnPos.y - _moveMinDistance.Evaluate(difficulty) > minHeight)
                     {
                         up = Convert.ToBoolean(Random.Range(0, 2));
@@ -245,8 +243,6 @@ public class Spawner : MonoBehaviour
                         maxY = Mathf.Clamp(spawnPos.y - _moveMinDistance.Evaluate(difficulty), minHeight, maxHeight);
                         targetPos.y = Random.Range(minY, maxY);
                     }
-
-                    Debug.Log("Min Y: " + minY + " Max Y: " + maxY + " Choosed: " + targetPos.y);
 
                     createdPlatform.initialPosition = spawnPos;
                     createdPlatform.targetPosition = targetPos;

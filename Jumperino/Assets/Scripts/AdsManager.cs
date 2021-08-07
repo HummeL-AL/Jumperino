@@ -18,17 +18,13 @@ public class AdsManager : MonoBehaviour
     static RewardedAd rewarded;
     static List<String> testDeviceIds = new List<string>();
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    void OnBeforeSceneLoadRuntimeMethod()
-    {
-    }
-
     public void Start()
     {
         TryToLoadData();
 
         if (_ageEntered)
         {
+            ageConfirmer.GetComponent<AgeConfirm>().play.SetActive(true);
             ageConfirmer.SetActive(false);
             SetConfiguration();
         }
@@ -59,7 +55,7 @@ public class AdsManager : MonoBehaviour
     {
         Debug.Log("Ad requested");
 
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712"; //"ca-app-pub-5510419902180222/2073821073";
+        string adUnitId = "ca-app-pub-5510419902180222/2073821073"; //"test: ca-app-pub-3940256099942544/1033173712";
         interstitial = new InterstitialAd(adUnitId);
         AdRequest request = new AdRequest.Builder().Build();
         interstitial.LoadAd(request);
@@ -72,7 +68,7 @@ public class AdsManager : MonoBehaviour
 
     public static void RequestRewardedAd()
     {
-        string adUnitId = "ca-app-pub-3940256099942544/5224354917"; // "ca-app-pub-5510419902180222/9162807753";
+        string adUnitId = "ca-app-pub-5510419902180222/9162807753"; // "test: ca-app-pub-3940256099942544/5224354917";
         rewarded = new RewardedAd(adUnitId);
         AdRequest request = new AdRequest.Builder().Build();
         rewarded.LoadAd(request);
