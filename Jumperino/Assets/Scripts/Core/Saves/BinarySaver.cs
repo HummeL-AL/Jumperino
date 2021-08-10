@@ -19,8 +19,6 @@ public class BinarySaver
 
         PlayerData data = new PlayerData();
         data.nicknameEntered = _nicknameEntered;
-        data.ageEntered = _ageEntered;
-        data.under13 = _under13;
         data.maxScores = _maxScores;
         data.totalJumps = _totalJumps;
         data.currentCoins = _currentCoins;
@@ -53,8 +51,6 @@ public class BinarySaver
             stream.Close();
 
             _nicknameEntered = data.nicknameEntered;
-            _ageEntered = data.ageEntered;
-            _under13 = data.under13;
             _maxScores = data.maxScores;
             _totalJumps = data.totalJumps;
             _currentCoins = data.currentCoins;

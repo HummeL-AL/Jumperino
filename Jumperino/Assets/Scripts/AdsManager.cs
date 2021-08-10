@@ -9,7 +9,7 @@ using static GameController;
 
 public class AdsManager : MonoBehaviour
 {
-    public GameObject ageConfirmer;
+    public GameObject play;
 
     public static int gamesToAd = 5;
     public static int numOfRetries = 5;
@@ -22,28 +22,11 @@ public class AdsManager : MonoBehaviour
     {
         TryToLoadData();
 
-        if (_ageEntered)
-        {
-            ageConfirmer.GetComponent<AgeConfirm>().play.SetActive(true);
-            ageConfirmer.SetActive(false);
-            SetConfiguration();
-        }
+        play.SetActive(true);
 
         testDeviceIds.Add("33BE2250B43518CCDA7DE426D04EE231");
 
-    }
-
-    public static void SetConfiguration()
-    {
-        RequestConfiguration configuration;
-        if (_under13)
-        {
-            configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.True).SetMaxAdContentRating(MaxAdContentRating.G).build();
-        }
-        else
-        {
-            configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).build();
-        }
+        RequestConfiguration configuration = new RequestConfiguration.Builder().SetTestDeviceIds(testDeviceIds).build();
         MobileAds.SetRequestConfiguration(configuration);
         MobileAds.Initialize(initStatus => { });
 

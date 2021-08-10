@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class PlayerData
 {
     public bool nicknameEntered;
-    public bool ageEntered;
-    public bool under13;
     public int maxScores;
     public int totalJumps;
     public int currentCoins;
@@ -20,8 +18,6 @@ public class PlayerData
     public ulong saveTime;
 
     public static bool _nicknameEntered;
-    public static bool _ageEntered;
-    public static bool _under13;
     public static string _nickname;
     public static int _maxScores;
     public static int _totalJumps;

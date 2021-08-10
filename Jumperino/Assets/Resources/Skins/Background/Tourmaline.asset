@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1d961b68a06c0545851249dde1af890, type: 3}
+  m_Name: Tourmaline
+  m_EditorClassIdentifier: 
+  skinName: Tourmaline
+  price: 50
+  material: {fileID: 2100000, guid: 79f09eeb50d242c46a206ba6b6001d4f, type: 2}
+  ambientParticles: {fileID: 0}
+  ambient: {fileID: 8300000, guid: 77b8b4e310616844c9764b235e0c5603, type: 3}
