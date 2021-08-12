@@ -5,6 +5,7 @@ using UnityEngine;
 public class CanvasAnimations : MonoBehaviour
 {
     public GameObject Name;
+    public GameObject Play;
     public GameObject ButtonPanel;
     public GameObject RestartGame;
     public GameObject ShopPanel;
@@ -24,6 +25,11 @@ public class CanvasAnimations : MonoBehaviour
         Scores.SetActive(false);
     }
 
+    public void Initialize()
+    {
+        Play.SetActive(true);
+    }
+
     public void MenuEnable()
     {
         Name.SetActive(true);
@@ -37,13 +43,6 @@ public class CanvasAnimations : MonoBehaviour
         ButtonPanel.SetActive(false);
         Scores.SetActive(true);
     }
-
-    //public void MenuSwap()
-    //{
-    //    Name.SetActive(!Name.activeSelf);
-    //    ButtonPanel.SetActive(!ButtonPanel.activeSelf);
-    //    Scores.SetActive(!Scores.activeSelf);
-    //}
 
     public void RestartPanelSwap()
     {

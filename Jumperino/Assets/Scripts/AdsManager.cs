@@ -9,8 +9,6 @@ using static GameController;
 
 public class AdsManager : MonoBehaviour
 {
-    public GameObject play;
-
     public static int gamesToAd = 5;
     public static int numOfRetries = 5;
 
@@ -21,8 +19,6 @@ public class AdsManager : MonoBehaviour
     public void Start()
     {
         TryToLoadData();
-
-        play.SetActive(true);
 
         testDeviceIds.Add("33BE2250B43518CCDA7DE426D04EE231");
 
@@ -61,6 +57,7 @@ public class AdsManager : MonoBehaviour
         rewarded.OnAdOpening += HandleOnRewardedAdOpened;
         rewarded.OnAdClosed += HandleOnRewardedAdClosed;
         rewarded.OnUserEarnedReward += GameContinue;
+        rewarded.OnAdFailedToShow += GameContinueShowFailed;
     }
 
     public static void CheckInterstitialAd()
@@ -244,6 +241,7 @@ public class AdsManager : MonoBehaviour
         AudioListener.volume = 1f;
 
         RequestRewardedAd();
+        ReplayGame();
     }
 
     public static void GameContinue(object sender, Reward args)
@@ -253,7 +251,6 @@ public class AdsManager : MonoBehaviour
         _totalAdsWatched++;
 
         CheckAdsCount();
-        ReplayGame();
     }
 
     public static void GameContinueFailed(object sender, AdFailedToLoadEventArgs args)
@@ -269,6 +266,12 @@ public class AdsManager : MonoBehaviour
             RequestInterstitialAd();
             numOfRetries--;
         }
+    }
+
+    public static void GameContinueShowFailed(object sender, AdErrorEventArgs args)
+    {
+            Debug.Log("Ad load failed. Error: " + args.AdError);
+            pc.game.RestartGame();
     }
 
     //---------------------------------------------------------------------------------------------------------

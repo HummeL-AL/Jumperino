@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
                         jumpAnim.SetBool("preparingJump", true);
 
                         float angle = transform.localEulerAngles.z;
-                        Debug.Log("Angle: " + angle);
                         if ((angle > 45 && angle < 135) || (angle > 225 && angle < 315))
                         {
                             jumpAnim.SetBool("horizontal", true);
@@ -138,7 +137,6 @@ public class PlayerController : MonoBehaviour
             jumpAnim.SetBool("preparingJump", true);
 
             float angle = transform.localEulerAngles.z;
-            Debug.Log("Angle: " + angle);
             if ((angle > 45 && angle < 135) || (angle > 225 && angle < 315))
             {
                 jumpAnim.SetBool("horizontal", true);
