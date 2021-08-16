@@ -18,3 +18,4 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: cb0f4bc5e43425a4aa96dc65d6bdd1fe, type: 2}
   landParticles: {fileID: 7104785319553585929, guid: ab84251b0589e14478ca75fe56def255, type: 3}
+  landSound: {fileID: 8300000, guid: 042833c1f32200c4a9211e0657b11f4b, type: 3}

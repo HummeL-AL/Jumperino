@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
             skin = value;
             GetComponent<MeshFilter>().sharedMesh = skin.mesh;
             GetComponent<MeshRenderer>().materials = skin.materials;
+            platformHitSound = skin.landSound;
         }
     }
 
@@ -198,11 +199,11 @@ public class PlayerController : MonoBehaviour
 
     public void DoJump()
     {
-        transform.parent = null;
         float jumpForce = basicJumpForce * (touchTime/MaxTouchTime);
         rb.AddForce(new Vector2(jumpForce * Mathf.Cos(jumpAngle * Mathf.Deg2Rad), jumpForce * Mathf.Sin(jumpAngle * Mathf.Deg2Rad)));
 
         _totalJumps++;
+        transform.parent = null;
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -211,6 +212,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.GetComponent<Platform>() && (!onGround || lastTouchedPlatform != collidedPlatform))
         {
             lastTouchedPlatform = collidedPlatform;
+            Debug.Log("Landed platform");
             transform.SetParent(lastTouchedPlatform.transform);
 
             AudioSource.PlayClipAtPoint(platformHitSound, collision.transform.position, soundVolume);
@@ -239,6 +241,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
+        Debug.Log("Leaved platform");
         transform.parent = null;
     }
 }

@@ -3,12 +3,10 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu (fileName = "NewSkin", menuName = "Skin/Player")]
-public class PlayerSkin : ScriptableObject
+public class PlayerSkin : Skin
 {
-    public string skinName;
-    public int price;
-
     public Mesh mesh;
     public Material[] materials;
     public ParticleSystem landParticles;
+    public AudioClip landSound;
 }

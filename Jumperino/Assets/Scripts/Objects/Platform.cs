@@ -13,6 +13,7 @@ public class Platform : MonoBehaviour
 
     public bool moving;
     public float speed;
+    public float waitTime;
     public Vector3 initialPosition;
     public Vector3 targetPosition;
 
@@ -34,7 +35,7 @@ public class Platform : MonoBehaviour
 
         if(moving)
         {
-           StartCoroutine(CycleMove(transform, initialPosition, targetPosition, speed));
+           StartCoroutine(CycleMove(transform, initialPosition, targetPosition, speed, waitTime));
         }
     }
 
@@ -60,34 +61,54 @@ public class Platform : MonoBehaviour
         }
     }
 
-    public static IEnumerator CycleMove(Transform targetObject, Vector3 initialPosition, Vector3 targetPosition, float motionSpeed)
+    public static IEnumerator CycleMove(Transform targetObject, Vector3 initialPosition, Vector3 targetPosition, float motionSpeed, float waitTime)
     {
         for (; ; )
         {
             for (; ; )
             {
-                if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, targetPosition)) > _maxDifference)
+                //if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, targetPosition)) > _maxDifference)
+                //{
+                //    targetObject.position = Vector3.Lerp(targetObject.localPosition, targetPosition, motionSpeed * Time.deltaTime);
+                //}
+                //else
+                //{
+                //    targetObject.localPosition = targetPosition;
+                //    break;
+                //}
+                if(targetObject.localPosition != targetPosition)
                 {
-                    targetObject.position = Vector3.Lerp(targetObject.localPosition, targetPosition, motionSpeed * Time.deltaTime);
+                    targetObject.localPosition = Vector3.MoveTowards(targetObject.localPosition, targetPosition, motionSpeed * Time.fixedDeltaTime);
                 }
                 else
                 {
-                    targetObject.localPosition = targetPosition;
+                    yield return new WaitForSeconds(waitTime);
                     break;
                 }
+
                 yield return new WaitForFixedUpdate();
             }
             for (; ; )
             {
-                if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, initialPosition)) > _maxDifference)
+                //if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, initialPosition)) > _maxDifference)
+                //{
+                //    targetObject.position = Vector3.Lerp(targetObject.localPosition, initialPosition, motionSpeed * Time.deltaTime);
+                //}
+                //else
+                //{
+                //    targetObject.localPosition = initialPosition;
+                //    break;
+                //}
+                if (targetObject.localPosition != initialPosition)
                 {
-                    targetObject.position = Vector3.Lerp(targetObject.localPosition, initialPosition, motionSpeed * Time.deltaTime);
+                    targetObject.localPosition = Vector3.MoveTowards(targetObject.localPosition, initialPosition, motionSpeed * Time.fixedDeltaTime);
                 }
                 else
                 {
-                    targetObject.localPosition = initialPosition;
+                    yield return new WaitForSeconds(waitTime);
                     break;
                 }
+
                 yield return new WaitForFixedUpdate();
             }
         }

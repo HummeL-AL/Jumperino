@@ -16,16 +16,52 @@ public class Shop : MonoBehaviour
     public Transform platformSkinPanel;
     public Transform backgroundSkinPanel;
 
+    private void Awake()
+    {
+        playerSkins = (PlayerSkin[])SortSkins(playerSkins);
+        platformSkins = (PlatformSkin[])SortSkins(platformSkins);
+        backgroundSkins = (BackgroundSkin[])SortSkins(backgroundSkins);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public Skin[] SortSkins(Skin[] skinArray)
+    {
+        Skin[] sortedArray = skinArray;
+
+        for(int i = 1; i < sortedArray.Length; i++)
+        {
+            Skin temp = sortedArray[i];
+            for (int j = i - 1; j >= 0; j--)
+            {
+                if (temp.price < sortedArray[j].price)
+                {
+                    sortedArray[j + 1] = sortedArray[j];
+
+                    if(j==0)
+                    {
+                        sortedArray[j] = temp;
+                    }
+                }
+                else
+                {
+                    sortedArray[j + 1] = temp;
+                    break;
+                }
+            }
+        }
+
+        return sortedArray;
     }
 
     public void UpdateShop()

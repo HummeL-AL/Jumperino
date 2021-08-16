@@ -257,14 +257,15 @@ public class AdsManager : MonoBehaviour
     {
         if (numOfRetries == 0)
         {
-            Debug.Log("Ad load failed. Error: " + args.LoadAdError);
             pc.game.RestartGame();
+            Debug.Log("Ad load failed. Error: " + args.LoadAdError);
         }
         else
         {
-            Debug.Log("Ad load failed. Retry.");
+            Debug.Log("Ad load failed. Retrying.");
             RequestInterstitialAd();
             numOfRetries--;
+            Debug.Log("Retry ended");
         }
     }
 

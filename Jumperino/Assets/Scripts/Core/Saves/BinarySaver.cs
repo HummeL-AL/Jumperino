@@ -62,6 +62,8 @@ public class BinarySaver
             _unlockedPlatformsSkins = data.unlockedPlatformsSkins;
             _unlockedBackgroundSkins = data.unlockedBackgroundSkins;
 
+            UpdateScores();
+
             return data;
         }
         else

@@ -17,3 +17,5 @@ MonoBehaviour:
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   materials:
   - {fileID: 2100000, guid: c3cd28d0348e92f4c80de9235d1d58da, type: 2}
+  landParticles: {fileID: 0}
+  landSound: {fileID: 8300000, guid: 042833c1f32200c4a9211e0657b11f4b, type: 3}

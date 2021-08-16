@@ -22,3 +22,4 @@ MonoBehaviour:
   - {fileID: 2100000, guid: e1022b30d99315d48af223bd7ee6ebff, type: 2}
   - {fileID: 2100000, guid: 9f93fa49d917e1f4c80c4844f3d20edb, type: 2}
   landParticles: {fileID: 0}
+  landSound: {fileID: 8300000, guid: 042833c1f32200c4a9211e0657b11f4b, type: 3}

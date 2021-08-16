@@ -247,6 +247,7 @@ public class Spawner : MonoBehaviour
                     createdPlatform.initialPosition = spawnPos;
                     createdPlatform.targetPosition = targetPos;
                     createdPlatform.speed = Random.Range(_moveMinSpeed.Evaluate(difficulty), _moveMaxSpeed.Evaluate(difficulty));
+                    createdPlatform.waitTime = Random.Range(1f, 2f);
                 }
             }
         }
