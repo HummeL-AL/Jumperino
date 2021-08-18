@@ -143,11 +143,6 @@ public class GameController : MonoBehaviour
         _maxScoresText = maxScoresText;
     }
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (freeMove)
@@ -158,6 +153,7 @@ public class GameController : MonoBehaviour
 
     public void StartGame()
     {
+        Debug.Log("Game started");
         FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
         _totalGamesPlayed++;
         CheckGamesCount();
@@ -190,6 +186,7 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
+        Debug.Log("Game restarted");
         FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelStart);
         FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
         _totalGamesPlayed++;
@@ -230,6 +227,7 @@ public class GameController : MonoBehaviour
 
     public static void ReplayGame()
     {
+        Debug.Log("Game replayed");
         pc.transform.parent = null;
         _player.transform.position = pc.lastTouchedPlatform.transform.position + Vector3.up;
         _player.transform.rotation = Quaternion.identity;
@@ -240,6 +238,7 @@ public class GameController : MonoBehaviour
 
     public void ExitToMenu()
     {
+        Debug.Log("Game exit");
         FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd);
 
         pc.transform.parent = null;

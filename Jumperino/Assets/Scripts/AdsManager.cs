@@ -81,7 +81,7 @@ public class AdsManager : MonoBehaviour
             rewarded.Show();
         }
 
-        RequestInterstitialAd();
+        RequestRewardedAd();
     }
 
     public static void CheckAdsCount()
@@ -176,7 +176,7 @@ public class AdsManager : MonoBehaviour
 
     public static void HandleOnInterstitialAdLoaded(object sender, EventArgs args)
     {
-        Debug.Log("Ad loaded successful");
+        Debug.Log("<Interstitial> Ad loaded successful");
         numOfRetries = 5;
     }
 
@@ -184,11 +184,11 @@ public class AdsManager : MonoBehaviour
     {
         if (numOfRetries == 0)
         {
-            Debug.Log("Ad load failed. Error: " + args.LoadAdError);
+            Debug.Log("<Interstitial> Ad load failed. Error: " + args.LoadAdError);
         }
         else
         {
-            Debug.Log("Ad load failed. Retry.");
+            Debug.Log("<Interstitial> Ad load failed. Retry.");
             RequestInterstitialAd();
             numOfRetries--;
         }
@@ -196,19 +196,19 @@ public class AdsManager : MonoBehaviour
 
     public static void HandleOnInterstitialAdOpened(object sender, EventArgs args)
     {
-        Debug.Log("Ad start showing");
+        Debug.Log("<Interstitial> Ad start showing");
 
         AudioListener.volume = 0f;
     }
 
     public static void HandleOnInterstitialAdClosed(object sender, EventArgs args)
     {
-        Debug.Log("Ad closed");
+        Debug.Log("<Interstitial> Ad closed");
 
         if (interstitial != null)
         {
             interstitial.Destroy();
-            Debug.Log("Add destroyed");
+            Debug.Log("<Interstitial> Add destroyed");
         }
 
         AudioListener.volume = 1f;
@@ -217,25 +217,25 @@ public class AdsManager : MonoBehaviour
     }
     public static void HandleOnRewardedAdLoaded(object sender, EventArgs args)
     {
-        Debug.Log("Ad loaded successful");
+        Debug.Log("<Rewarded> Ad loaded successful");
         numOfRetries = 5;
     }
 
     public static void HandleOnRewardedAdOpened(object sender, EventArgs args)
     {
-        Debug.Log("Ad start showing");
+        Debug.Log("<Rewarded> Ad start showing");
 
         AudioListener.volume = 0f;
     }
 
     public static void HandleOnRewardedAdClosed(object sender, EventArgs args)
     {
-        Debug.Log("Ad closed");
+        Debug.Log("<Rewarded> Ad closed");
 
         if (rewarded != null)
         {
             rewarded.Destroy();
-            Debug.Log("Add Destroyed");
+            Debug.Log("<Rewarded> Ad Destroyed");
         }
 
         AudioListener.volume = 1f;
@@ -246,7 +246,7 @@ public class AdsManager : MonoBehaviour
 
     public static void GameContinue(object sender, Reward args)
     {
-        Debug.Log("Game continue successful");
+        Debug.Log("<Rewarded> Game continue successful");
         FirebaseAnalytics.LogEvent("Total_Ads_Views", new Parameter("Type", "Game_Continue"));
         _totalAdsWatched++;
 
@@ -257,22 +257,24 @@ public class AdsManager : MonoBehaviour
     {
         if (numOfRetries == 0)
         {
+            Debug.Log("<Rewarded> Trying to restart game. Info: " + pc + " " + pc.game + " " + pc.game.name);
             pc.game.RestartGame();
-            Debug.Log("Ad load failed. Error: " + args.LoadAdError);
+            Debug.Log("<Rewarded> Ad load failed. Error: " + args.LoadAdError);
         }
         else
         {
-            Debug.Log("Ad load failed. Retrying.");
+            Debug.Log("<Rewarded> Ad load failed. Retrying.");
             RequestInterstitialAd();
             numOfRetries--;
-            Debug.Log("Retry ended");
+            Debug.Log("<Rewarded> Retry ended");
         }
     }
 
     public static void GameContinueShowFailed(object sender, AdErrorEventArgs args)
     {
-            Debug.Log("Ad load failed. Error: " + args.AdError);
-            pc.game.RestartGame();
+        Debug.Log("<Rewarded> Trying to restart game. Info: " + pc + " " + pc.game + " " + pc.game.name);
+        pc.game.RestartGame();
+        Debug.Log("<Rewarded> Ad load failed. Error: " + args.AdError);
     }
 
     //---------------------------------------------------------------------------------------------------------
