@@ -1,1 +1,59 @@
 google.com, pub-5510419902180222, DIRECT, f08c47fec0942fa0
+chocolateplatform.com, 16281, DIRECT, 49a66ce31a704197
+pubmatic.com, 160888, RESELLER, 5d62403b186f2ace
+synacor.com, 82377, RESELLER, e108f11b2cdf7d5b
+advertising.com, 19623, RESELLER # AOL - One
+appnexus.com, 9316, RESELLER, f5ab79cb980f11d1 # AppNexus
+engagebdr.com, 10417, RESELLER # EngageDBR
+onetag.com, 572a470226457b8, RESELLER # OneTag
+openx.com, 540401713, RESELLER, 6a698e2ec38604c6 # OpenX
+pubmatic.com, 156344, RESELLER, 5d62403b186f2ace # Pubmatic
+rhythmone.com, 905992537, RESELLER, a670c89d4a324e47 # RhythmOne
+video.unrulymedia.com, 905992537, RESELLER, a670c89d4a324e47 # RhythmOne
+aralego.com, par-488A3E6BD8D997D0ED8B3BD34D8BA4B, RESELLER # ucFunnel
+ucfunnel.com, par-488A3E6BD8D997D0ED8B3BD34D8BA4B, RESELLER # ucFunnel
+onetag.com, 72b20ec05ea6e86, DIRECT
+advertising.com, 28246, RESELLER
+rubiconproject.com, 11006, RESELLER, 0bfd66d529a55807
+google.com, pub-3769010358500643, RESELLER, f08c47fec0942fa0
+freewheel.tv, 20393, RESELLER
+freewheel.tv, 24377, RESELLER
+yahoo.com, 58905, RESELLER e1a5b5b6e3255540
+aol.com, 58905, RESELLER, e1a5b5b6e3255540
+rubiconproject.com, 11726, RESELLER, 0bfd66d529a55807
+pubmatic.com, 157097, RESELLER, 5d62403b186f2ace
+rubiconproject.com,16928, RESELLER,0bfd66d529a55807
+Blis.com, 33, RESELLER,61453ae19a4b73f4
+rubiconproject.com,12266, RESELLER,0bfd66d529a55807
+pubnative.net,1006951, RESELLER, d641df8625486a7b
+inmobi.com, fe4db13744124582a6a2b18964560ce7, RESELLER, 83e75a7ae333ca9d
+reforge.in,83, DIRECT 
+reforge.in,409, DIRECT 
+pubmatic.com,157384, RESELLER,5d62403b186f2ace 
+rubiconproject.com,21526, RESELLER,0bfd66d529a55807 
+rubiconproject.com,21938, RESELLER,0bfd66d529a55807
+loopme.com, 9722, RESELLER, 6c8d5f95897a5a3b
+rubiconproject.com, 20744, RESELLER, 0bfd66d529a55807
+engagebdr.com, 10181, RESELLER
+smartyads.com,100034, RESELLER, fd2bde0ff2e62c5d
+Eskimi.com, eas-2020000005, RESELLER
+pubmatic.com, 158154, RESELLER, 5d62403b186f2ace
+admanmedia.com, 594, RESELLER
+admixer.net, eab09ea6-bcf7-4eff-965d-b4f43962c73c, RESELLER
+indexexchange.com, 194730, RESELLER
+pokkt.com, 7606, RESELLER, c45702d9311e25fd
+appads.in, 107606, RESELLER
+contextweb.com, 562499, RESELLER, 89ff185a4c4e857c
+contextweb.com, 562448, RESELLER,89ff185a4c4e857c
+google.com, pub-5717092533913515, RESELLER, f08c47fec0942fa0 #NPMpartners
+indexexchange.com, 185192, RESELLER #EBDA
+rubiconproject.com, 17346, RESELLER, 0bfd66d529a55807 #EBDA
+pubmatic.com, 157904, RESELLER, 5d62403b186f2ace #EBDA
+advertising.com, 28613, RESELLER #VerizonOBVideo
+openx.com, 538929384, RESELLER, 6a698e2ec38604c6 #EBDA
+spotx.tv, 108706, RESELLER, 7842df1d2fe2db34 #EBDA
+spotxchange.com,108706, RESELLER, 7842df1d2fe2db34 #EBDA
+rhythmone.com,1149317856, RESELLER, a670c89d4a324e47 #EBDA
+video.unrulymedia.com, 1149317856, RESELLER #EBDA
+airnowmedia.com, ANM013, DIRECT
+engagebdr.com, 10352, DIRECT 
