@@ -28,6 +28,7 @@ public static class DatabaseController
         dir.Child("Skins").Child("PlayerSkins").SetValueAsync(_unlockedPlayerSkins);
         dir.Child("Skins").Child("PlatformsSkins").SetValueAsync(_unlockedPlatformsSkins);
         dir.Child("Skins").Child("BackgroundSkins").SetValueAsync(_unlockedBackgroundSkins);
+        dir.Child("Skins").Child("CoinsSkins").SetValueAsync(_unlockedCoinsSkins);
         dir.Child("Save time").SetValueAsync(GetTime());
     }
 
@@ -74,6 +75,15 @@ public static class DatabaseController
         foreach (DataSnapshot miniSnap in allSnap.Child("Skins").Child("BackgroundSkins").Children)
         {
             loadedData.unlockedBackgroundSkins.Add(miniSnap.Value.ToString());
+        }
+
+        if (loadedData.unlockedCoinsSkins == null)
+        {
+            loadedData.unlockedCoinsSkins = new List<string>();
+        }
+        foreach (DataSnapshot miniSnap in allSnap.Child("Skins").Child("CoinsSkins").Children)
+        {
+            loadedData.unlockedCoinsSkins.Add(miniSnap.Value.ToString());
         }
 
         loadedData.saveTime = Convert.ToUInt64(allSnap.Child("Save time").Value);

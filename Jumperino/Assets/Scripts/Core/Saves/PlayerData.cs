@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class PlayerData
 {
     public bool nicknameEntered;
+    public int gamesToAd = 5;
     public int maxScores;
     public int totalJumps;
     public int currentCoins;
@@ -14,10 +15,12 @@ public class PlayerData
     public List<string> unlockedPlayerSkins;
     public List<string> unlockedPlatformsSkins;
     public List<string> unlockedBackgroundSkins;
+    public List<string> unlockedCoinsSkins;
 
     public ulong saveTime;
 
     public static bool _nicknameEntered;
+    public static int _gamesToAd;
     public static string _nickname;
     public static int _maxScores;
     public static int _totalJumps;
@@ -28,4 +31,5 @@ public class PlayerData
     public static List<string> _unlockedPlayerSkins;
     public static List<string> _unlockedPlatformsSkins;
     public static List<string> _unlockedBackgroundSkins;
+    public static List<string> _unlockedCoinsSkins;
 }

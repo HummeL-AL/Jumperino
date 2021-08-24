@@ -9,7 +9,6 @@ using static GameController;
 
 public class AdsManager : MonoBehaviour
 {
-    public static int gamesToAd = 5;
     public static int numOfRetries = 5;
 
     static InterstitialAd interstitial;
@@ -62,12 +61,13 @@ public class AdsManager : MonoBehaviour
 
     public static void CheckInterstitialAd()
     {
-        if (gamesToAd == 0)
+        Debug.Log("Ads checked: " + _gamesToAd);
+        if (_gamesToAd <= 0)
         {
             if (interstitial.IsLoaded())
             {
                 interstitial.Show();
-                gamesToAd = 5;
+                _gamesToAd = 5;
             }
 
             RequestInterstitialAd();

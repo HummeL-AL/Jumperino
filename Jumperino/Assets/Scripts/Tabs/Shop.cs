@@ -15,12 +15,14 @@ public class Shop : MonoBehaviour
     public Transform playerSkinPanel;
     public Transform platformSkinPanel;
     public Transform backgroundSkinPanel;
+    public Transform coinSkinPanel;
 
     private void Awake()
     {
         playerSkins = (PlayerSkin[])SortSkins(playerSkins);
         platformSkins = (PlatformSkin[])SortSkins(platformSkins);
         backgroundSkins = (BackgroundSkin[])SortSkins(backgroundSkins);
+        coinSkins = (CoinSkin[])SortSkins(coinSkins);
     }
 
     // Start is called before the first frame update
@@ -78,6 +80,10 @@ public class Shop : MonoBehaviour
         {
             Destroy(panel.gameObject);
         }
+        foreach (Transform panel in coinSkinPanel)
+        {
+            Destroy(panel.gameObject);
+        }
 
         foreach (PlayerSkin skin in playerSkins)
         {
@@ -103,7 +109,7 @@ public class Shop : MonoBehaviour
         {
             Transform createdPanel = Instantiate(shopItem, platformSkinPanel.transform).transform;
             createdPanel.name = skin.skinName;
-            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Platforms/" + skin.skinName + "/Preview");
+            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Platforms/" + skin.skinName + "/" + skin.skinName);
 
             createdPanel.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = skin.price.ToString();
 
@@ -133,6 +139,26 @@ public class Shop : MonoBehaviour
             }
 
             if (_unlockedBackgroundSkins.Contains(skin.skinName))
+            {
+                createdPanel.GetChild(1).gameObject.SetActive(false);
+                createdPanel.GetChild(2).gameObject.SetActive(true);
+            }
+        }
+
+        foreach (CoinSkin skin in coinSkins)
+        {
+            Transform createdPanel = Instantiate(shopItem, coinSkinPanel.transform).transform;
+            createdPanel.name = skin.skinName;
+            createdPanel.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("Textures/Skins/Coins/" + skin.skinName + "/" + skin.skinName);
+
+            createdPanel.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text = skin.price.ToString();
+
+            if (_unlockedCoinsSkins == null)
+            {
+                _unlockedCoinsSkins = new List<string>();
+            }
+
+            if (_unlockedCoinsSkins.Contains(skin.skinName))
             {
                 createdPanel.GetChild(1).gameObject.SetActive(false);
                 createdPanel.GetChild(2).gameObject.SetActive(true);
@@ -176,6 +202,15 @@ public class Shop : MonoBehaviour
                             _unlockedBackgroundSkins = new List<string>();
                         }
                         _unlockedBackgroundSkins.Add(skinName);
+                        break;
+                    }
+                case "Coins":
+                    {
+                        if (_unlockedCoinsSkins == null)
+                        {
+                            _unlockedCoinsSkins = new List<string>();
+                        }
+                        _unlockedCoinsSkins.Add(skinName);
                         break;
                     }
             }
@@ -226,6 +261,18 @@ public class Shop : MonoBehaviour
                         if (skin.skinName == skinName)
                         {
                             cam.GetComponent<Global>().Skin = skin;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            case "Coins":
+                {
+                    foreach (CoinSkin skin in coinSkins)
+                    {
+                        if (skin.skinName == skinName)
+                        {
+                            Coin.Skin = skin;
                             break;
                         }
                     }

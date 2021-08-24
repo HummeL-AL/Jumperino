@@ -18,6 +18,9 @@ public class BinarySaver
         FileStream stream = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData();
+
+        data.gamesToAd = _gamesToAd;
+
         data.nicknameEntered = _nicknameEntered;
         data.maxScores = _maxScores;
         data.totalJumps = _totalJumps;
@@ -30,6 +33,7 @@ public class BinarySaver
         data.unlockedPlayerSkins = _unlockedPlayerSkins;
         data.unlockedPlatformsSkins = _unlockedPlatformsSkins;
         data.unlockedBackgroundSkins = _unlockedBackgroundSkins;
+        data.unlockedCoinsSkins = _unlockedCoinsSkins;
 
         formatter.Serialize(stream, data);
         stream.Close();
@@ -50,6 +54,8 @@ public class BinarySaver
             PlayerData data = formatter.Deserialize(stream) as PlayerData;
             stream.Close();
 
+            _gamesToAd = data.gamesToAd;
+
             _nicknameEntered = data.nicknameEntered;
             _maxScores = data.maxScores;
             _totalJumps = data.totalJumps;
@@ -61,6 +67,7 @@ public class BinarySaver
             _unlockedPlayerSkins = data.unlockedPlayerSkins;
             _unlockedPlatformsSkins = data.unlockedPlatformsSkins;
             _unlockedBackgroundSkins = data.unlockedBackgroundSkins;
+            _unlockedCoinsSkins = data.unlockedCoinsSkins;
 
             UpdateScores();
 
@@ -85,6 +92,7 @@ public class BinarySaver
         settings.playerSkin = pc.skin.name;
         settings.platformSkin = _platformSkin.name;
         settings.backgroundSkin = cam.GetComponent<Global>().skin.name;
+        settings.coinSkin = Coin.Skin.name;
 
         settings.jumpTime = pc.MaxTouchTime;
         settings.musicVolume = musicVolume;
@@ -114,6 +122,7 @@ public class BinarySaver
                 pc.Skin = Resources.Load<PlayerSkin>("Skins/Player/" + settings.playerSkin);
                 _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/" + settings.platformSkin);
                 cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/" + settings.backgroundSkin);
+                Coin.Skin = Resources.Load<CoinSkin>("Skins/Coins/" + settings.coinSkin);
 
                 pc.MaxTouchTime = settings.jumpTime;
                 musicVolume = settings.musicVolume;
@@ -123,19 +132,29 @@ public class BinarySaver
             }
             catch (Exception)
             {
-                pc.skin = Resources.Load<PlayerSkin>("Skins/Player/Default");
-                _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/Default");
-                cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/Default");
-
-                pc.MaxTouchTime = 1f;
-                musicVolume = 1f;
-                soundVolume = 1f;
+                LoadSettingsDefault();
                 return null;
             }
         }
         else
         {
+            LoadSettingsDefault();
             return SaveSettingsOffline();
         }
+    }
+
+    public static PlayerSettings LoadSettingsDefault()
+    {
+        Debug.Log("Load default settings initialized");
+
+        pc.skin = Resources.Load<PlayerSkin>("Skins/Player/Default");
+        _platformSkin = Resources.Load<PlatformSkin>("Skins/Platforms/Default");
+        cam.GetComponent<Global>().Skin = Resources.Load<BackgroundSkin>("Skins/Background/Default");
+        Coin.Skin = Resources.Load<CoinSkin>("Skins/Coins/Default_G");
+
+        pc.MaxTouchTime = 0.75f;
+        musicVolume = 1f;
+        soundVolume = 1f;
+        return null;
     }
 }

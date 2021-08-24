@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Crate
+  m_EditorClassIdentifier: 
+  skinName: Crate
+  price: 25
+  mesh: {fileID: -5495902117074765545, guid: af89652c03f0cd04196932ded4da4930, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 3e6e5c0f9f46bb945963461114a4b248, type: 2}
+  - {fileID: 2100000, guid: d941d152b071f0e4291a2eb049a0d99d, type: 2}
+  - {fileID: 2100000, guid: 9d0fc45b6f70c9242ba66450f3861ed4, type: 2}
+  landParticles: {fileID: 0}
+  landSound: {fileID: 8300000, guid: 042833c1f32200c4a9211e0657b11f4b, type: 3}

@@ -205,7 +205,7 @@ public class Spawner : MonoBehaviour
 
                     if (Random.Range(0, 2) == 0)
                     {
-                        targetRotation = -targetRotation;
+                        targetRotation = -targetRotation * 0.6f;
                     }
 
                     createdPlatform.transform.rotation = Quaternion.Euler(targetRotation);

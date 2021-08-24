@@ -19,6 +19,9 @@ public class Global : MonoBehaviour
 
     public ParticleSystem bgParticles;
 
+    public Sprite coinSkin;
+    public static Sprite _coinSkin;
+
     public static float _maxDifference;
     public static TextMeshProUGUI _nicknameField;
 
@@ -78,6 +81,8 @@ public class Global : MonoBehaviour
     {
         _maxDifference = maxDifference;
         _nicknameField = nicknameField;
+
+        _coinSkin = coinSkin;
 
         GetMacAddress();
     }

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static Global;
 using static Spawner;
 
 public class Platform : MonoBehaviour
@@ -67,15 +66,6 @@ public class Platform : MonoBehaviour
         {
             for (; ; )
             {
-                //if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, targetPosition)) > _maxDifference)
-                //{
-                //    targetObject.position = Vector3.Lerp(targetObject.localPosition, targetPosition, motionSpeed * Time.deltaTime);
-                //}
-                //else
-                //{
-                //    targetObject.localPosition = targetPosition;
-                //    break;
-                //}
                 if(targetObject.localPosition != targetPosition)
                 {
                     targetObject.localPosition = Vector3.MoveTowards(targetObject.localPosition, targetPosition, motionSpeed * Time.fixedDeltaTime);
@@ -90,15 +80,6 @@ public class Platform : MonoBehaviour
             }
             for (; ; )
             {
-                //if (Mathf.Abs(Vector3.Distance(targetObject.localPosition, initialPosition)) > _maxDifference)
-                //{
-                //    targetObject.position = Vector3.Lerp(targetObject.localPosition, initialPosition, motionSpeed * Time.deltaTime);
-                //}
-                //else
-                //{
-                //    targetObject.localPosition = initialPosition;
-                //    break;
-                //}
                 if (targetObject.localPosition != initialPosition)
                 {
                     targetObject.localPosition = Vector3.MoveTowards(targetObject.localPosition, initialPosition, motionSpeed * Time.fixedDeltaTime);

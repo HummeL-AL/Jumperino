@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rainbow
   m_EditorClassIdentifier: 
   skinName: Rainbow
-  price: 25
+  price: 75
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   materials:
   - {fileID: 2100000, guid: e4386755accaea14eabd9429c8b036a7, type: 2}

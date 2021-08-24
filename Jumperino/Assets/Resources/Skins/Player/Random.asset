@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5585c06b861e9d4a9043fc7107ec955, type: 3}
+  m_Name: Random
+  m_EditorClassIdentifier: 
+  skinName: Random
+  price: 75
+  mesh: {fileID: -5495902117074765545, guid: 327ef06c21a00bf4987c448a09610c49, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 355d733650fe95d4fa8ed65398565374, type: 2}
+  - {fileID: 2100000, guid: ef392a8969c64f444bc34085ec5b286b, type: 2}
+  landParticles: {fileID: 0}
+  landSound: {fileID: 8300000, guid: 042833c1f32200c4a9211e0657b11f4b, type: 3}

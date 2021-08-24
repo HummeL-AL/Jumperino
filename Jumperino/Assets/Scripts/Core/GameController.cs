@@ -214,9 +214,8 @@ public class GameController : MonoBehaviour
         moveCoroutine = StartCoroutine(MoveTo(cam.transform, camTargetPosition, camSpeed));
         freeMove = false;
 
+        _gamesToAd -= 1;
         TryToSaveData();
-
-        gamesToAd -= 1;
         CheckInterstitialAd();
     }
 
@@ -269,9 +268,8 @@ public class GameController : MonoBehaviour
         freeMove = false;
         sizeCoroutine = StartCoroutine(ChangeCameraSize(cam, targetSize, zoomSpeed));
 
+        _gamesToAd -= 1;
         TryToSaveData();
-
-        gamesToAd -= 1;
         CheckInterstitialAd();
     }
 
