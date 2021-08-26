@@ -1,4 +1,5 @@
 google.com, pub-5510419902180222, DIRECT, f08c47fec0942fa0
+media.net, 8CU4Y44A7, DIRECT
 chocolateplatform.com, 16281, DIRECT, 49a66ce31a704197
 pubmatic.com, 160888, RESELLER, 5d62403b186f2ace
 synacor.com, 82377, RESELLER, e108f11b2cdf7d5b
